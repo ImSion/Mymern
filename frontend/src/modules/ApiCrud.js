@@ -51,7 +51,7 @@ export const getComment = (postId, commentId) => axiosApi
 
       // Funzione per aggiornare un commento specifico
 export const updateComment = (postId, commentId, commentData) => axiosApi
-      .put(`/blogPosts/${postId}/comments/${commentId}`, commentData)
+      .patch(`/blogPosts/${postId}/comments/${commentId}`, commentData)
       .then((response) => response.data);
 
       // Funzione per eliminare un commento specifico

@@ -1,35 +1,34 @@
-// Importa gli hook necessari da React
-import { useState, useEffect } from "react";
-// Importa useParams per accedere ai parametri dell'URL
-import { useParams } from "react-router-dom";
-// Importo la funzione getPost dal mio file services/api
-import { getPost } from "../modules/ApiCrud"; 
-// Importa il file CSS per gli stili specifici di questo componente
-import { Link } from "react-router-dom";
-
+import { useState, useEffect } from "react"; // Importa gli hook di React necessari
+import { useParams } from "react-router-dom"; // Importa useParams per accedere ai parametri dell'URL
+import { getPost, getUserData } from "../modules/ApiCrud"; // Importa le funzioni API necessarie
+import { Link } from "react-router-dom"; // Importa Link per la navigazione
+import CommentSection from "../components/CommentSection"; // Importa il nuovo componente CommentSection
 
 export default function PostDetail() {
   // Stato per memorizzare i dati del post
   const [post, setPost] = useState(null);
-
+  // Nuovo stato per memorizzare i dati dell'utente corrente
+  const [currentUser, setCurrentUser] = useState(null);
   // Estrae l'id del post dai parametri dell'URL
   const { id } = useParams();
 
-  // Effect hook per fetchare i dati del post quando il componente viene montato o l'id cambia
   useEffect(() => {
-    const fetchPost = async () => {
+    // Funzione asincrona per recuperare i dati del post e dell'utente
+    const fetchPostAndUser = async () => {
       try {
-        // Effettua una richiesta GET al backend per ottenere i dettagli del post
-        const response = await getPost(id);
-        // Aggiorna lo stato con i dati del post
-        setPost(response.data);
+        // Recupera i dati del post
+        const postResponse = await getPost(id);
+        setPost(postResponse.data);
+        
+        // Recupera i dati dell'utente corrente
+        const userResponse = await getUserData();
+        setCurrentUser(userResponse);
       } catch (error) {
-        // Logga eventuali errori nella console
-        console.error("Errore nella fetch del post:", error);
+        console.error("Errore nel recupero dei dati:", error);
       }
     };
-    // Chiama la funzione fetchPost
-    fetchPost();
+    // Chiama la funzione fetchPostAndUser
+    fetchPostAndUser();
   }, [id]); // L'effetto si attiva quando l'id cambia
 
   // Se il post non è ancora stato caricato, mostra un messaggio di caricamento
@@ -52,10 +51,15 @@ export default function PostDetail() {
           </span>
         </div>
         {/* Contenuto del post */}
-        {/* dangerouslySetInnerHTML, come nel template originario che ci ha dato EPICODE è usato per renderizzare HTML "RAW", usare con cautela!!!! */}
         <div
           className="post-content"
           dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+        
+        {/* Aggiunge la sezione commenti, passando l'id del post e i dati dell'utente corrente */}
+        <CommentSection 
+          postId={post._id} 
+          currentUser={currentUser}
         />
       </article>
     </div>
