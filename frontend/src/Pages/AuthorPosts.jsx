@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getAuthorPosts, getAuthorByEmail, updateAuthorAvatar } from '../modules/ApiCrud';
 import { Modal, Button } from 'flowbite-react';
-import '../Authorposts.css'; // Importa il file CSS
+import '../Animations.css'; // Importa il file CSS
 
 const AuthorPosts = () => {
     const { authorEmail } = useParams();

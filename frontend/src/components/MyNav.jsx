@@ -11,42 +11,36 @@ import {
   NavbarToggle,
   DarkThemeToggle,
 } from "flowbite-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getUserData } from "../modules/ApiCrud";
+import { useSearch } from '../modules/SearchContext';
 
-export default function MyNav() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+export default function MyNav({ isAuthenticated, setIsAuthenticated }) {
+  const location = useLocation();
   const [author, setAuthor] = useState(null);
   const navigate = useNavigate();
+  const { toggleSearchVisibility } = useSearch();
 
   useEffect(() => {
-    const checkLoginStatus = async () => {
-      const token = localStorage.getItem("token");
-      setIsLoggedIn(!!token);
-      if (token) {
+    if (isAuthenticated) {
+      const fetchUserData = async () => {
         try {
           const authorData = await getUserData();
           setAuthor(authorData);
         } catch (error) {
           console.error("Errore nel recupero dei dati dell'autore:", error);
         }
-      }
-    };
-
-    checkLoginStatus();
-    window.addEventListener("storage", checkLoginStatus);
-
-    return () => {
-      window.removeEventListener("storage", checkLoginStatus);
-    };
-  }, []);
+      };
+      fetchUserData();
+    }
+  }, [isAuthenticated]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    setIsLoggedIn(false);
+    setIsAuthenticated(false);
     setAuthor(null);
-    navigate("/");
+    navigate("/login");
   };
 
   const handleAuthorClick = () => {
@@ -57,8 +51,8 @@ export default function MyNav() {
 
   return (
     <Navbar fluid>
-      <NavbarBrand href="/">
-        <Link to='/'>
+      <NavbarBrand href="/home">
+        <Link to='/home'>
           <img 
             src="https://m.media-amazon.com/images/M/MV5BNDQzNDViNDYtNjE2Ny00YmNhLWExZWEtOTIwMDA1YjY5NDBhXkEyXkFqcGdeQXVyODg3NDc1OTE@._V1_QL75_UX190_CR0,2,190,281_.jpg"
             className="mr-3 h-6 w-6 sm:h-6 sm:w-6 md:h-9 md:w-9 lg:h-12 lg:w-12 shadow-[0px_0px_10px] shadow-sky-500 rounded-full"
@@ -68,7 +62,7 @@ export default function MyNav() {
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">POVBlogs</span>
       </NavbarBrand>
       <div className="flex md:order-2">
-        {isLoggedIn && (
+        {isAuthenticated && (
           <Link to='/create' className="flex items-center mr-3 transition-all ease-in-out duration-500 hover:scale-110">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -82,10 +76,27 @@ export default function MyNav() {
             </svg>
           </Link>
         )}
+        {location.pathname === '/home' && (
+          <button 
+            onClick={toggleSearchVisibility} 
+            className="mr-3 transition-all ease-in-out duration-500 hover:scale-110"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              strokeWidth={1.5} 
+              stroke="currentColor" 
+              className="size-6 dark:text-sky-500"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+          </button>
+        )}
         <div className="flex items-center transition-all ease-in-out duration-500 hover:scale-110">
           <DarkThemeToggle className="mr-3 hover:shadow-[inset_0px_0px_8px] dark:hover:shadow-amber-300 hover:shadow-sky-800 hover:bg-transparent rounded-full border-2 border-slate-500 p-1 h-8 w-8 transition-all ease-in-out duration-500 hover:scale-105"/>
         </div>
-        {isLoggedIn ? (
+        {isAuthenticated ? (
           author && (
             <Dropdown
               arrowIcon={false}
@@ -122,7 +133,7 @@ export default function MyNav() {
       </div>
       <NavbarCollapse>
         <NavbarLink className="hover:animate-pulse" active>
-          <Link to='/' >Home</Link>
+          <Link to='/home' >Home</Link>
         </NavbarLink>
         <NavbarLink href="#">Services</NavbarLink>
         <NavbarLink href="#">Pricing</NavbarLink>

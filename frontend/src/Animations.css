@@ -1,3 +1,5 @@
+
+/*  animazioni Authorposts */
 .dropdown-content {
     max-height: 0;
     overflow: hidden;
@@ -26,3 +28,28 @@
 .dropdown-content.open .birthday {
     transform: translateX(0);
 }
+/* Fine animazioni Authorposts */
+
+
+
+/* animazioni Home */
+@keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .post-card {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  
+  .post-card.visible {
+    animation: slideInFromLeft 0.9s ease-out forwards;
+  }
+  /* fine animazioni home */
