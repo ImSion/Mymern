@@ -21,13 +21,13 @@ const AnimatedBackground = () => {
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       radius: Math.random() * 20 + 5, // Raggio casuale tra 5 e 25
-      dx: (Math.random() - 0.5) * 0.5, // Velocità orizzontale
-      dy: (Math.random() - 0.5) * 0.5, // Velocità verticale
+      dx: (Math.random() - 0.5) * 0.4, // Velocità orizzontale
+      dy: (Math.random() - 0.5) * 0.4, // Velocità verticale
       color: `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},0.5)`
     });
 
     // Crea le sfere iniziali
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 20; i++) {
       spheres.push(createSphere());
     }
 

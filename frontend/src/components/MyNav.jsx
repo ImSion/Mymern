@@ -61,7 +61,7 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated }) {
         </Link>
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">POVBlogs</span>
       </NavbarBrand>
-      <div className="flex md:order-2">
+      <div className="flex items-center justify-center md:order-2">
         {isAuthenticated && (
           <Link to='/create' className="flex items-center mr-3 transition-all ease-in-out duration-500 hover:scale-110">
             <svg 
@@ -79,7 +79,7 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated }) {
         {location.pathname === '/home' && (
           <button 
             onClick={toggleSearchVisibility} 
-            className="mr-3 transition-all ease-in-out duration-500 hover:scale-110"
+            className="mr-3 flex items-center justify-center border-2 border-[#64748b] hover:shadow-[inset_0px_0px_8px] dark:shadow-sky-500 rounded-full w-8 h-8 transition-all ease-in-out duration-500 hover:scale-110"
           >
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -87,7 +87,7 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated }) {
               viewBox="0 0 24 24" 
               strokeWidth={1.5} 
               stroke="currentColor" 
-              className="size-6 dark:text-sky-500"
+              className="size-5 rounded-full p-0 dark:text-sky-500"
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
             </svg>
