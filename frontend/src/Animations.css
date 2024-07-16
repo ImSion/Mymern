@@ -53,3 +53,24 @@
     animation: slideInFromLeft 0.9s ease-out forwards;
   }
   /* fine animazioni home */
+
+
+
+  
+  /* animazione bottoni Modifica/elimina in AuthorPosts */
+  .translate-x-full {
+    transform: translateX(100%);
+  }
+  
+  .translate-x-0 {
+    transform: translateX(0);
+  }
+  
+  .opacity-0 {
+    opacity: 0;
+  }
+  
+  .opacity-100 {
+    opacity: 1;
+  }
+  /* fine animazione bottoni Modifica/elimina in AuthorPosts   */
