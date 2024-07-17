@@ -1,0 +1,162 @@
+/* LoginForm.css */
+.login-form {
+    width: 400px;
+    padding: 64px 15px 24px;
+    margin: 0 auto;
+    color: #fff;
+    font-family: monospace, serif;
+    letter-spacing: 0.05em;
+  }
+  
+  .login-form input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    font-family: monospace, serif;
+    letter-spacing: 0.05em;
+    font-size: 16px;
+  }
+  
+  .login-form input:hover,
+  .login-form input:focus {
+    outline: none;
+    border: 0;
+  }
+  
+  .login-form .btn {
+    width: 100%;
+    display: block;
+    padding: 14px 16px;
+    background: transparent;
+    outline: none;
+    border: 0;
+    color: #fff;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 16px;
+  }
+  
+  .block-cube {
+    position: relative;
+  }
+  
+  .block-cube .formbg-top {
+    position: absolute;
+    height: 10px;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(52,9,121,1) 37%, rgba(0,212,255,1) 94%);
+    bottom: 100%;
+    left: 5px;
+    right: -5px;
+    transform: skew(-45deg, 0);
+    margin: 0;
+  }
+  
+  .block-cube .formbg-top .formbg-inner {
+    bottom: 0;
+  }
+  
+  .block-cube .formbg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(52,9,121,1) 37%, rgba(0,212,255,1) 94%);
+  }
+  
+  .block-cube .formbg-right {
+    position: absolute;
+    background: rgb(2,0,36);
+    background: rgba(0,212,255,1);
+    top: -5px;
+    z-index: 0;
+    bottom: 5px;
+    width: 10px;
+    left: 100%;
+    transform: skew(0, -45deg);
+  }
+  
+  .block-cube .formbg-right .formbg-inner {
+    left: 0;
+  }
+  
+  .block-cube .formbg .formbg-inner {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .block-cube .formbg-inner {
+    background: #0a0a0a;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+  }
+  
+  .block-cube .formtext {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .block-cube.block-input input {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .block-cube.block-input input:focus ~ .formbg-right .formbg-inner,
+  .block-cube.block-input input:focus ~ .formbg-top .formbg-inner,
+  .block-cube.block-input input:focus ~ .formbg-inner .formbg-inner {
+    top: 100%;
+    background: #0284c7;
+  }
+  
+  .block-cube.block-input .formbg-top,
+  .block-cube.block-input .formbg-right,
+  .block-cube.block-input .formbg {
+    background: #0284c7;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .block-cube.block-input .formbg-right .formbg-inner,
+  .block-cube.block-input .formbg-top .formbg-inner {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .block-cube.block-input:focus .formbg-top,
+  .block-cube.block-input:focus .formbg-right,
+  .block-cube.block-input:focus .formbg,
+  .block-cube.block-input:hover .formbg-top,
+  .block-cube.block-input:hover .formbg-right,
+  .block-cube.block-input:hover .formbg {
+    background: #0284c7;
+  }
+  
+  .block-cube.block-cube-hover:focus .formbg .formbg-inner,
+  .block-cube.block-cube-hover:hover .formbg .formbg-inner {
+    top: 100%;
+  }
+  
+  .credits {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 15px 15px;
+    width: 100%;
+    z-index: 111;
+  }
+  
+  .credits a {
+    opacity: 0.6;
+    color: #fff;
+    font-size: 11px;
+    text-decoration: none;
+  }
+  
+  .credits a:hover {
+    opacity: 1;
+  }

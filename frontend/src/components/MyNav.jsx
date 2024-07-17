@@ -94,7 +94,7 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated }) {
           </button>
         )}
         <div className="flex items-center transition-all ease-in-out duration-500 hover:scale-110">
-          <DarkThemeToggle className="mr-3 hover:shadow-[inset_0px_0px_8px] dark:hover:shadow-amber-300 hover:shadow-sky-800 hover:bg-transparent rounded-full border-2 border-slate-500 p-1 h-8 w-8 transition-all ease-in-out duration-500 hover:scale-105"/>
+          <DarkThemeToggle className="mr-3 hover:shadow-[inset_0px_0px_8px] dark:hover:shadow-amber-300 dark:hover:text-amber-300 hover:shadow-sky-800 hover:text-sky-800 hover:bg-transparent rounded-full border-2 border-slate-500 p-1 h-8 w-8 transition-all ease-in-out duration-500 hover:scale-105"/>
         </div>
         {isAuthenticated ? (
           author && (

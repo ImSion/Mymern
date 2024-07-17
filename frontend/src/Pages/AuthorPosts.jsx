@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getAuthorPosts, getAuthorByEmail, updateAuthorAvatar, deletePost, getMe, updatePost } from '../modules/ApiCrud';
 import { Modal, Button } from 'flowbite-react';
-import '../Animations.css';
+import '../Style/Animations.css';
 
 const EditPostModal = ({ isOpen, onClose, post, onSave }) => {
     const [editedPost, setEditedPost] = useState(post);

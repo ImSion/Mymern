@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { getPosts } from '../modules/ApiCrud';
 import { Link } from 'react-router-dom';
 import { useSearch } from '../modules/SearchContext'
-import '../Animations.css';
+import '../Style/Animations.css';
 import AnimatedBackground from '../components/AnimatedBackground';
 
 
@@ -81,7 +81,7 @@ export default function Home() {
         <>
             <div className='text-center relative'>
                 <AnimatedBackground />
-                <h1 className='dark:bg-gray-800 dark:text-white dark:shadow-[0px_0px_25px] dark:shadow-sky-600 text-xl font-sans font-semibold'>
+                <h1 className='dark:bg-gray-800 dark:text-white dark:shadow-[0px_0px_25px] dark:shadow-sky-600 text-5xl py-3 font-sans font-semibold'>
                     Welcome to POVBlogs!
                 </h1>
                 
@@ -105,14 +105,16 @@ export default function Home() {
 
                 <div className='dark:bg-gradient-to-tr from-slate-500 from-10% via-slate-700 via-30% to-slate-900 flex items-center justify-center lg:justify-between text-center p-3 flex-wrap min-h-screen relative'>
                     {currentPosts.map((post) => (
-                        <Link to={`/post/${post._id}`} key={post._id} className='post-card border-2 flex flex-col gap-2 rounded-lg w-[350px] h-[280px] sm:w-[550px] sm:h-full lg:w-[480px] mx-3 mb-5 md:mx-1'>
-                            <img className='w-full h-[280px] rounded-lg' src={post.cover} alt={post.titolo} />
+                        <Link to={`/post/${post._id}`} key={post._id} className='post-card border-2 flex flex-col gap-2 rounded-lg w-[350px] h-[280px] sm:w-[550px] sm:h-full lg:w-[480px] mx-3 mb-8 mt-3 md:mx-1'>
                             <h2>{post.titolo}</h2>
                             <Link to={`/AuthorPosts/${post.author}`}>
                                 <p className='hover:scale-105 hover:bg-slate-200 rounded-full hover:shadow-md hover:shadow-sky-700 transition-transform duration-500 '>
                                     Autore: {post.author}
                                 </p>
                             </Link>
+                            <img className='w-full h-[280px] rounded-lg' src={post.cover} alt={post.titolo} />
+                            
+                            
                         </Link>
                     ))}
                 </div>
