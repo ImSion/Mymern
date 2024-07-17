@@ -68,7 +68,7 @@ export default function CreatePost() {
           console.log("Dati del form:", Object.fromEntries(formData));
           const response = await createPost(formData);
           console.log("Risposta del server:", response);
-          navigate('/');
+          navigate('/home');
       } catch(err) {
           console.error('Errore nella creazione del Post:', err);
           console.error('Dettagli dell\'errore:', err.response?.data);
@@ -77,7 +77,7 @@ export default function CreatePost() {
   }
 
   return (
-    <div className='flex text-center items-center justify-center flex-col p-1 dark:bg-slate-800 min-h-screen'>
+    <div className='flex text-center items-center justify-center flex-col p-1 min-h-screen'>
         <h1 className='dark:text-white text-3xl mb-6'>Crea un nuovo post</h1>
         <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center text-center gap-5'>
             {/* campo per il titolo */}

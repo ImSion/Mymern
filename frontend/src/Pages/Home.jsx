@@ -85,7 +85,7 @@ export default function Home() {
                     Welcome to POVBlogs!
                 </h1>
                 
-                <div className={`dark:bg-[#1f2937] flex justify-center items-center transition-transform duration-300 ease-in-out transform ${isSearchVisible ? 'scale-100' : 'scale-0'} origin-top`}>
+                <div className={`dark:bg-transparent mt-3 rounded-full flex justify-center items-center transition-transform duration-300 ease-in-out transform ${isSearchVisible ? 'scale-100' : 'scale-0'} origin-top`}>
                     {isSearchVisible && (
                         <div className='p-3 rounded-full bg-white h-12 flex border-2 justify-between items-center mt-2'>
                             <input
@@ -103,16 +103,16 @@ export default function Home() {
                     )}
                 </div>
 
-                <div className='dark:bg-gradient-to-tr from-slate-500 from-10% via-slate-700 via-30% to-slate-900 flex items-center justify-center lg:justify-between text-center p-3 flex-wrap min-h-screen relative'>
+                <div className=' from-slate-500 from-10% via-slate-700 via-30% to-slate-900 flex items-center justify-center lg:justify-between text-center p-3 flex-wrap min-h-screen relative'>
                     {currentPosts.map((post) => (
-                        <Link to={`/post/${post._id}`} key={post._id} className='post-card border-2 flex flex-col gap-2 rounded-lg w-[350px] h-[280px] sm:w-[550px] sm:h-full lg:w-[480px] mx-3 mb-8 mt-3 md:mx-1'>
-                            <h2>{post.titolo}</h2>
+                        <Link to={`/post/${post._id}`} key={post._id} className='post-card border-2 flex flex-col gap-2 rounded-lg w-[350px] h-[280px] sm:w-[550px] sm:h-full lg:w-[480px] mx-3 mb-8 mt-10 md:mx-1'>
+                            <img className='w-full h-[280px] rounded-lg' src={post.cover} alt={post.titolo} />
+                            <h2 className='dark:text-white'>{post.titolo}</h2>
                             <Link to={`/AuthorPosts/${post.author}`}>
-                                <p className='hover:scale-105 hover:bg-slate-200 rounded-full hover:shadow-md hover:shadow-sky-700 transition-transform duration-500 '>
+                                <p className='hover:scale-105 hover:bg-slate-200 dark:text-white dark:hover:bg-slate-500 rounded-full hover:shadow-md hover:shadow-sky-700 transition-transform duration-500 '>
                                     Autore: {post.author}
                                 </p>
                             </Link>
-                            <img className='w-full h-[280px] rounded-lg' src={post.cover} alt={post.titolo} />
                             
                             
                         </Link>
