@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../modules/ApiCrud";
 import '../components/AnimatedBackground'
 import '../Style/Animations.css'
@@ -9,16 +9,22 @@ export default function Login({ setIsAuthenticated }) {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation(); 
 
   useEffect(() => {
-    // Trigger the animation after a short delay
+    const params = new URLSearchParams(location.search);
+    const token = params.get("token");
+    if (token) {
+      localStorage.setItem("token", token);
+      setIsAuthenticated(true);
+      navigate("/home");
+    }
+  }, [location, navigate, setIsAuthenticated]);
+
+  useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,11 +32,19 @@ export default function Login({ setIsAuthenticated }) {
       const response = await loginUser(formData);
       localStorage.setItem("token", response.token);
       setIsAuthenticated(true);
-      navigate("/home");
+      setTimeout(() => navigate("/home"), 100); // Aggiunto ritardo per permettere il recupero corretto dei dati
     } catch (error) {
       console.error("Errore durante il login:", error);
       alert("Credenziali non valide. Riprova.");
     }
+  };
+  
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:5001/api/auth/google';
   };
 
   return (
@@ -76,7 +90,14 @@ export default function Login({ setIsAuthenticated }) {
           <div className="formbg"><div className="formbg-inner"></div></div>
           <div className="formtext">Log In</div>
         </button>
+        <button onClick={handleGoogleLogin} className="btn block-cube block-cube-hover" type="submit">
+          <div className="formbg-top"><div className="formbg-inner"></div></div>
+          <div className="formbg-right"><div className="formbg-inner"></div></div>
+          <div className="formbg"><div className="formbg-inner"></div></div>
+          <div className="formtext">Accedi con Google</div>
+        </button>
       </form>
+      
     </div>
   );
 }

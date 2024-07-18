@@ -2,11 +2,15 @@ import express from 'express';
 import Author from '../modules/Authors.js';
 import { generateJWT } from '../utils/jwt.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
+import passport from '../config/passportConfig.js'; 
 
 const router = express.Router();
 
+// Definisci l'URL del frontend usando una variabile d'ambiente
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+
 // POST che restituisce token di accesso
-router.post('/login', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     // Estrae email e password dal corpo della richiesta
     const { email, password } = req.body;
@@ -38,7 +42,6 @@ router.post('/login', async (req, res) => {
 });
 
 // GET che restituisce l'autore collegato al token di accesso
-// authMiddleware verifica il token e aggiunge i dati dell'autore a req.author
 router.get('/me', authMiddleware, (req, res) => {
   // Converte il documento Mongoose in un oggetto JavaScript semplice
   const authorData = req.author.toObject();
@@ -47,5 +50,22 @@ router.get('/me', authMiddleware, (req, res) => {
   // Invia i dati dell'autore come risposta
   res.json(authorData);
 });
+
+// Rotta per iniziare il processo di autenticazione Google
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  async (req, res) => {
+    try {
+      const token = await generateJWT({ id: req.user._id });
+      console.log("Token JWT generato per l'utente Google:", token); 
+      res.redirect(`${FRONTEND_URL}/login?token=${token}`);
+    } catch (error) {
+      console.error("Errore nella generazione del token JWT:", error); 
+      res.redirect(`${FRONTEND_URL}/login?error=auth_failed`);
+    }
+  }
+);
 
 export default router;

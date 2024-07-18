@@ -20,18 +20,19 @@ const authorsSchema = new mongoose.Schema(
       },
       data_di_nascita: {
         type: String,
-        required: true,
         trim: true,
       },
       avatar: {
         type: String,
-        required: true,
         trim: true,
         default: "https://www.shutterstock.com/image-vector/default-avatar-profile-vector-user-260nw-1705357234.jpg"
       },
       password: {
         type: String,
-        required: true
+      },
+      googleid: { 
+        type: String
+
       }
 
     },

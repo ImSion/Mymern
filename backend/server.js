@@ -8,6 +8,8 @@ import blogRoutes from './routes/blogRoutes.js' // Rotte per i blog post
 import authRoutes from './routes/authRoutes.js' // Rotte per l'autenticazione 
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import session from "express-session"; // Importiamo session
+import passport from "./config/passportConfig.js"; // importiamo passport
 
 // MIDDLEWARE Importazione dei middleware per la gestione degli errori
 import {
@@ -25,10 +27,34 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+  }));
 app.use(express.json());
 
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+// Configurazione della sessione
+app.use(
+    session({
+      // Il 'secret' è usato per firmare il cookie di sessione
+      // È importante che sia una stringa lunga, unica e segreta
+      secret: process.env.SESSION_SECRET,
+  
+      // 'resave: false' dice al gestore delle sessioni di non
+      // salvare la sessione se non è stata modificata
+      resave: false,
+  
+      // 'saveUninitialized: false' dice al gestore delle sessioni di non
+      // creare una sessione finché non memorizziamo qualcosa
+      // Aiuta a implementare le "login sessions" e riduce l'uso del server di memorizzazione
+      saveUninitialized: false,
+    })
+  );
+
+  // Inizializzazione di Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 mongoose
 .connect(process.env.MONGO_URI)
@@ -39,7 +65,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/authors', authorsRoutes)
 app.use('/api/BlogPosts', blogRoutes)
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5001
 
 // Applicazione dei middleware per la gestione degli errori
 app.use(badRequestHandler); // Gestisce errori 400 Bad Request

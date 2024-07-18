@@ -68,12 +68,12 @@ export const registerUser = (userData) => axiosApi.post("/authors", userData);
 // Funzione per effettuare il login di un utente
 export const loginUser = async (credentials) => {
       try {
-        const response = await axiosApi.post("/auth/login", credentials); // Effettua la richiesta di login
-        console.log("Risposta API login:", response.data); // Log della risposta per debugging
-        return response.data; // Restituisce i dati della risposta
+        const response = await axiosApi.post("/auth", credentials);
+        console.log("Risposta API login:", response.data);
+        return response.data;
       } catch (error) {
-        console.error("Errore nella chiamata API di login:", error); // Log dell'errore per debugging
-        throw error; // Lancia l'errore per essere gestito dal chiamante
+        console.error("Errore nella chiamata API di login:", error);
+        throw error;
       }
     };
 
