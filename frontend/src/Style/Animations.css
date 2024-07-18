@@ -8,7 +8,7 @@
 }
 
 .dropdown-content.open {
-    max-height: 500px; 
+    max-height: 500px;
     opacity: 1;
 }
 
@@ -43,12 +43,12 @@
       opacity: 1;
     }
   }
-  
+
   .post-card {
     opacity: 0;
     transform: translateX(-100%);
   }
-  
+
   .post-card.visible {
     animation: slideInFromLeft 0.9s ease-out forwards;
   }
@@ -56,20 +56,20 @@
 
 
 
-  
+
   /* animazione bottoni Modifica/elimina in AuthorPosts */
   .translate-x-full {
     transform: translateX(100%);
   }
-  
+
   .translate-x-0 {
     transform: translateX(0);
   }
-  
+
   .opacity-0 {
     opacity: 0;
   }
-  
+
   .opacity-100 {
     opacity: 1;
   }
@@ -99,8 +99,22 @@
       transform: scale(1);
     }
   }
-  
+
   .login-form-animation {
     animation: fadeInAndPulse 5s ease-out forwards;
   }
   /* fine animazione form login */
+
+
+  
+  /* Animazione per il cursore del titolo  */
+  @keyframes blink {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  .animate-blink {
+    animation: blink 0.7s infinite;
+  }
+  /* fine animazione per il cursore del titolo */

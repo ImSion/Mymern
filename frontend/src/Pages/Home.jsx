@@ -1,3 +1,4 @@
+// Importazione delle dipendenze necessarie
 import React, { useEffect, useState, useCallback } from 'react';
 import { getPosts } from '../modules/ApiCrud';
 import { Link } from 'react-router-dom';
@@ -5,17 +6,28 @@ import { useSearch } from '../modules/SearchContext'
 import '../Style/Animations.css';
 import AnimatedBackground from '../components/AnimatedBackground';
 
-
+// Definizione del componente principale Home
 export default function Home() {
+    // Stato per tutti i post
     const [allPosts, setAllPosts] = useState([]);
+    // Stato per i post filtrati
     const [filteredPosts, setFilteredPosts] = useState([]);
+    // Stato per il termine di ricerca
     const [search, setSearch] = useState('');
+    // Stato per l'opzione di ricerca (titolo o autore)
     const [searchOption, setSearchOption] = useState('titolo');
+    // Utilizzo del contesto di ricerca per la visibilità della barra di ricerca
     const { isSearchVisible } = useSearch();
     
+    // Stati per la paginazione
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(15);
+    const [postsPerPage] = useState(12);
 
+    // Nuovo stato per il testo del titolo
+    const [titleText, setTitleText] = useState('');
+    const fullTitle = 'Welcome to POVBlogs!';
+
+    // Funzione per recuperare i post dal server
     const fetchPosts = useCallback(async () => {
         try {
             const response = await getPosts();
@@ -26,19 +38,38 @@ export default function Home() {
         }
     }, []);
 
+    // Effetto per caricare i post al montaggio del componente
     useEffect(() => {
         fetchPosts();
     }, [fetchPosts]);
 
+    // Effetto per l'animazione del titolo
+    useEffect(() => {
+        let index = 0;
+        const intervalId = setInterval(() => {
+            setTitleText((prev) => {
+                if (index < fullTitle.length) {
+                    index++;
+                    return fullTitle.slice(0, index);
+                }
+                clearInterval(intervalId);
+                return prev;
+            });
+        }, 200); // qui si regola la velocità dell'animazione
+
+        return () => clearInterval(intervalId);
+    }, []);
+
+    // Effetto per filtrare i post in base alla ricerca
     useEffect(() => {
         if (search.trim() === '') {
             setFilteredPosts(allPosts);
         } else {
             const filtered = allPosts.filter(post => {
                 if (searchOption === 'titolo') {
-                    return post.titolo.toLowerCase().startsWith(search.toLowerCase());
+                    return post.titolo.toLowerCase().includes(search.toLowerCase());
                 } else if (searchOption === 'author') {
-                    return post.author.toLowerCase().startsWith(search.toLowerCase());
+                    return post.author.toLowerCase().includes(search.toLowerCase());
                 }
                 return false;
             });
@@ -47,23 +78,28 @@ export default function Home() {
         setCurrentPage(1);
     }, [search, searchOption, allPosts]);
 
+    // Gestore per il cambiamento del testo di ricerca
     const handleSearch = (event) => {
         setSearch(event.target.value);
     };
 
+    // Gestore per il cambiamento dell'opzione di ricerca
     const handleOptionChange = (event) => {
         setSearchOption(event.target.value);
     };
 
+    // Calcolo dei post da visualizzare nella pagina corrente
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
+    // Funzione per cambiare pagina
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
         window.scrollTo(0, 0);
     };
 
+    // Effetto per animare l'apparizione dei post
     useEffect(() => {
         const timer = setTimeout(() => {
             const postElements = document.querySelectorAll('.post-card');
@@ -77,12 +113,15 @@ export default function Home() {
         return () => clearTimeout(timer);
     }, [currentPosts]);
 
+    // Rendering del componente
     return (
         <>
             <div className='text-center relative'>
                 <AnimatedBackground />
-                <h1 className='dark:bg-gray-800 dark:text-white dark:shadow-[0px_0px_25px] dark:shadow-sky-600 text-5xl py-3 font-sans font-semibold'>
-                    Welcome to POVBlogs!
+                
+                <h1 className='dark:bg-transparent dark:text-white dark:shadow-[0px_-10px_10px] dark:shadow-sky-600 text-3xl sm:text-5xl py-3 font-sans font-semibold h-12 flex items-center justify-center'>
+                    {titleText}
+                    <span className="animate-blink">|</span>
                 </h1>
                 
                 <div className={`dark:bg-transparent mt-3 rounded-full flex justify-center items-center transition-transform duration-300 ease-in-out transform ${isSearchVisible ? 'scale-100' : 'scale-0'} origin-top`}>
@@ -103,19 +142,26 @@ export default function Home() {
                     )}
                 </div>
 
-                <div className=' from-slate-500 from-10% via-slate-700 via-30% to-slate-900 flex items-center justify-center lg:justify-between text-center p-3 flex-wrap min-h-screen relative'>
+                <div className=' flex flex-wrap transition-all ease-in-out duration-300  justify-center p-3 min-h-screen relative'>
                     {currentPosts.map((post) => (
-                        <Link to={`/post/${post._id}`} key={post._id} className='post-card border-2 flex flex-col gap-2 rounded-lg w-[350px] h-[280px] sm:w-[550px] sm:h-full lg:w-[480px] mx-3 mb-8 mt-10 md:mx-1'>
-                            <img className='w-full h-[280px] rounded-lg' src={post.cover} alt={post.titolo} />
-                            <h2 className='dark:text-white'>{post.titolo}</h2>
-                            <Link to={`/AuthorPosts/${post.author}`}>
-                                <p className='hover:scale-105 hover:bg-slate-200 dark:text-white dark:hover:bg-slate-500 rounded-full hover:shadow-md hover:shadow-sky-700 transition-transform duration-500 '>
-                                    Autore: {post.author}
-                                </p>
+                        <div key={post._id} className='post-card relative overflow-hidden rounded-lg w-[300px] xl:w-[550px] h-[400px] dark:shadow-md dark:hover:shadow-lg dark:hover:shadow-sky-500 dark:shadow-sky-500 transition-all ease-in-out duration-300 mx-3 mb-8 mt-10 group'>
+                            <div className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
+                                style={{
+                                    backgroundImage: `url(${post.cover})`
+                                }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+                            <Link to={`/post/${post._id}`} className="absolute inset-0 z-10">
+                                <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
+                                    <h2 className='text-white text-xl font-bold mb-2 line-clamp-2'>{post.titolo}</h2>
+                                    <Link to={`/AuthorPosts/${post.author}`} className="block">
+                                        <p className='hover:scale-105 hover:bg-slate-200 dark:text-white dark:hover:bg-slate-500 rounded-full hover:shadow-md hover:shadow-sky-700 transition-transform duration-500 inline-block'>
+                                            Autore: {post.author}
+                                        </p>
+                                    </Link>
+                                </div>
                             </Link>
-                            
-                            
-                        </Link>
+                        </div>
                     ))}
                 </div>
 
@@ -124,25 +170,23 @@ export default function Home() {
                         <button
                             onClick={() => paginate(currentPage - 1)}
                             disabled={currentPage === 1}
-                            className="mx-1 px-1 shadow-md shadow-gray-700 rounded-full py-1 border bg-sky-700 text-white disabled:bg-gray-300 disabled:text-gray-500"
+                            className="mx-1 px-1 shadow-md shadow-gray-700 rounded-full py-1 border bg-sky-700 text-white disabled:bg-gray-500 disabled:text-gray-800"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                             </svg>
-
                         </button>
-                        <span className="mx-2 text-xl">
+                        <span className="mx-2 text-xl dark:text-white">
                             {currentPage}/{Math.ceil(filteredPosts.length / postsPerPage)}
                         </span>
                         <button
                             onClick={() => paginate(currentPage + 1)}
                             disabled={currentPage === Math.ceil(filteredPosts.length / postsPerPage)}
-                            className="mx-1 px-1 shadow-md shadow-gray-700 rounded-full py-1 border bg-sky-700 text-white disabled:bg-gray-300 disabled:text-gray-500"
+                            className="mx-1 px-1 shadow-md shadow-gray-700 rounded-full py-1 border bg-sky-700 text-white disabled:bg-gray-500 disabled:text-gray-800"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                             </svg>
-
                         </button>
                     </div>
                 )}

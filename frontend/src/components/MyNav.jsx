@@ -55,19 +55,21 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
 
   return (
     <Navbar fluid>
-      <NavbarBrand href="/home">
+
+      <NavbarBrand href="/home" className="mb-2 xs:mb-0 ">
         <Link to='/home'>
           <img 
             src="https://m.media-amazon.com/images/M/MV5BNDQzNDViNDYtNjE2Ny00YmNhLWExZWEtOTIwMDA1YjY5NDBhXkEyXkFqcGdeQXVyODg3NDc1OTE@._V1_QL75_UX190_CR0,2,190,281_.jpg"
-            className="mr-3 h-6 w-6 sm:h-6 sm:w-6 md:h-9 md:w-9 lg:h-12 lg:w-12 shadow-[0px_0px_10px] shadow-sky-500 rounded-full"
+            className="ml-28 xs:ml-0 mr-3 h-6 w-6 sm:h-6 sm:w-6 md:h-9 md:w-9 lg:h-12 lg:w-12 shadow-[0px_0px_10px] shadow-sky-500 rounded-full"
             alt="POVBlogs Logo"
           />
         </Link>
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">POVBlogs</span>
       </NavbarBrand>
+      
       <div className="flex items-center justify-center md:order-2">
         {isAuthenticated && (
-          <Link to='/create' className="flex items-center mr-3 transition-all ease-in-out duration-500 hover:scale-110">
+          <Link to='/create' className="flex ml-16 xs:ml-0 items-center mr-3 transition-all ease-in-out duration-500 hover:scale-110">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
               fill="none" 
