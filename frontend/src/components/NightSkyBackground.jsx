@@ -51,7 +51,7 @@ const NightSkyBackground = ({ className, isVisible }) => {
     let stars = [];
     let shootingStars = [];
 
-    // Inizializza l'array delle stelle
+    // Inizializzo l'array delle stelle
     const initStars = () => {
       stars = Array(200).fill().map(createStar);
     };
@@ -64,7 +64,7 @@ const NightSkyBackground = ({ className, isVisible }) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Disegna lo sfondo del cielo notturno
-      ctx.fillStyle = 'rgb(5, 5, 20)';
+      ctx.fillStyle = 'rgb(10, 10, 15)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Disegna e anima ogni stella

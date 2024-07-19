@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../modules/ApiCrud";
+
 import '../components/AnimatedBackground'
 import '../Style/Animations.css'
 import '../Style/Form.css';
@@ -56,8 +57,9 @@ export default function Login({ setIsAuthenticated }) {
         
       >
         <div className="mb-6 text-center">
-          <h1 className="text-3xl text-black">Login</h1>
+          <h1 className="text-3xl text-black dark:text-white">Login</h1>
         </div>
+        
         <div className="block-cube block-input mb-4">
           <input 
             name="email" 
@@ -65,12 +67,13 @@ export default function Login({ setIsAuthenticated }) {
             placeholder="Email" 
             onChange={handleChange}
             required
-            className="bg-transparent text-center"
+            className="bg-transparent text-center dark:placeholder-white"
           />
-          <div className="formbg-top"><div className="formbg-inner"></div></div>
-          <div className="formbg-right"><div className="formbg-inner"></div></div>
-          <div className="formbg"><div className="formbg-inner"></div></div>
+          <div className="formbg-top"><div className="formbg-inner dark:bg-slate-300"></div></div>
+          <div className="formbg-right "><div className="formbg-inner dark:bg-slate-300"></div></div>
+          <div className="formbg"><div className="formbg-inner dark:bg-gradient-to-tr from-white via-sky-400/90 to-sky-800"></div></div>
         </div>
+
         <div className="block-cube block-input mb-6">
           <input 
             name="password" 
@@ -78,24 +81,28 @@ export default function Login({ setIsAuthenticated }) {
             placeholder="Password" 
             onChange={handleChange}
             required
-            className="bg-transparent text-center"
+            className="bg-transparent text-center dark:placeholder-white"
           />
-          <div className="formbg-top"><div className="formbg-inner"></div></div>
-          <div className="formbg-right"><div className="formbg-inner"></div></div>
-          <div className="formbg"><div className="formbg-inner"></div></div>
+          <div className="formbg-top"><div className="formbg-inner dark:bg-slate-300"></div></div>
+          <div className="formbg-right"><div className="formbg-inner dark:bg-slate-300"></div></div>
+          <div className="formbg"><div className="formbg-inner dark:bg-gradient-to-tr from-white via-sky-400/90 to-sky-600/60"></div></div>
         </div>
-        <button className="btn block-cube block-cube-hover" type="submit">
-          <div className="formbg-top"><div className="formbg-inner"></div></div>
-          <div className="formbg-right"><div className="formbg-inner"></div></div>
-          <div className="formbg"><div className="formbg-inner"></div></div>
-          <div className="formtext">Log In</div>
-        </button>
-        <button onClick={handleGoogleLogin} className="btn block-cube block-cube-hover" type="submit">
-          <div className="formbg-top"><div className="formbg-inner"></div></div>
-          <div className="formbg-right"><div className="formbg-inner"></div></div>
-          <div className="formbg"><div className="formbg-inner"></div></div>
-          <div className="formtext">Accedi con Google</div>
-        </button>
+
+        <div className='flex gap-3'>
+          <button className="btn block-cube block-cube-hover" type="submit">
+            <div className="formbg-top"><div className="formbg-inner dark:bg-slate-300"></div></div>
+            <div className="formbg-right"><div className="formbg-inner dark:bg-slate-300"></div></div>
+            <div className="formbg"><div className="formbg-inner dark:bg-gradient-to-tr from-white via-sky-400/90 to-sky-800"></div></div>
+            <div className="formtext">Log In</div>
+          </button>
+          <button onClick={handleGoogleLogin} className="btn block-cube block-cube-hover" type="submit">
+            <div className="formbg-top"><div className="formbg-inner dark:bg-slate-300"></div></div>
+            <div className="formbg-right"><div className="formbg-inner dark:bg-slate-300"></div></div>
+            <div className="formbg"><div className="formbg-inner dark:bg-gradient-to-tr from-white via-sky-400/90 to-sky-800"></div></div>
+            <div className="formtext flex items-center justify-center">Google <img className='w-6 ml-2 dark:bg-black dark:rounded-full' src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt="" /></div>
+          </button> 
+        </div>
+        
       </form>
       
     </div>

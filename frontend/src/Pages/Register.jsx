@@ -55,11 +55,11 @@ export default function Register() {
               placeholder="Nome" 
               onChange={handleChange}
               required
-              className="bg-transparent text-center"
+              className="bg-transparent text-center dark:placeholder-white"
             />
-            <div className="formbg-top"><div className="formbg-inner"></div></div>
-            <div className="formbg-right"><div className="formbg-inner"></div></div>
-            <div className="formbg"><div className="formbg-inner"></div></div>
+            <div className="formbg-top"><div className="formbg-inner dark:bg-white"></div></div>
+            <div className="formbg-right"><div className="formbg-inner dark:bg-white"></div></div>
+            <div className="formbg"><div className="formbg-inner dark:bg-gradient-to-tr from-white via-sky-400/90 to-sky-800"></div></div>
           </div>
           <div className="block-cube block-input mb-4 w-72">
           <input 
@@ -68,11 +68,11 @@ export default function Register() {
               placeholder="Cognome" 
               onChange={handleChange}
               required
-              className="bg-transparent text-center"
+              className="bg-transparent text-center dark:placeholder-white"
             />
-            <div className="formbg-top"><div className="formbg-inner"></div></div>
-            <div className="formbg-right"><div className="formbg-inner"></div></div>
-            <div className="formbg"><div className="formbg-inner"></div></div>
+            <div className="formbg-top"><div className="formbg-inner dark:bg-white"></div></div>
+            <div className="formbg-right"><div className="formbg-inner dark:bg-white"></div></div>
+            <div className="formbg"><div className="formbg-inner dark:bg-gradient-to-tr from-white via-sky-400/90 to-sky-800"></div></div>
           </div>
         </div>
 
@@ -84,11 +84,11 @@ export default function Register() {
               placeholder="Email" 
               onChange={handleChange}
               required
-              className="bg-transparent text-center"
+              className="bg-transparent text-center dark:placeholder-white"
             />
-            <div className="formbg-top"><div className="formbg-inner"></div></div>
-            <div className="formbg-right"><div className="formbg-inner"></div></div>
-            <div className="formbg"><div className="formbg-inner"></div></div>
+            <div className="formbg-top"><div className="formbg-inner dark:bg-white"></div></div>
+            <div className="formbg-right"><div className="formbg-inner dark:bg-white"></div></div>
+            <div className="formbg"><div className="formbg-inner dark:bg-gradient-to-tr from-white via-sky-400/90 to-sky-800"></div></div>
           </div>
 
           <div className="block-cube block-input mb-4 w-72">
@@ -98,11 +98,11 @@ export default function Register() {
               placeholder="Password" 
               onChange={handleChange}
               required
-              className="bg-transparent text-center"
+              className="bg-transparent text-center dark:placeholder-white"
             />
-            <div className="formbg-top"><div className="formbg-inner"></div></div>
-            <div className="formbg-right"><div className="formbg-inner"></div></div>
-            <div className="formbg"><div className="formbg-inner"></div></div>
+            <div className="formbg-top"><div className="formbg-inner dark:bg-white"></div></div>
+            <div className="formbg-right"><div className="formbg-inner dark:bg-white"></div></div>
+            <div className="formbg"><div className="formbg-inner dark:bg-gradient-to-tr from-white via-sky-400/90 to-sky-800"></div></div>
           </div>
         </div>       
                
@@ -112,17 +112,17 @@ export default function Register() {
             type="date" 
             onChange={handleChange}
             required
-            className="bg-transparent text-center"
+            className="bg-transparent text-center dark:placeholder-white"
           />
-          <div className="formbg-top"><div className="formbg-inner"></div></div>
-          <div className="formbg-right"><div className="formbg-inner"></div></div>
-          <div className="formbg"><div className="formbg-inner"></div></div>
+          <div className="formbg-top"><div className="formbg-inner dark:bg-white"></div></div>
+          <div className="formbg-right"><div className="formbg-inner dark:bg-white"></div></div>
+          <div className="formbg"><div className="formbg-inner dark:bg-gradient-to-tr from-white via-sky-400/90 to-sky-800"></div></div>
         </div>
 
         <button className="btn block-cube block-cube-hover" type="submit">
-          <div className="formbg-top"><div className="formbg-inner"></div></div>
-          <div className="formbg-right"><div className="formbg-inner"></div></div>
-          <div className="formbg"><div className="formbg-inner"></div></div>
+          <div className="formbg-top"><div className="formbg-inner dark:bg-white"></div></div>
+          <div className="formbg-right"><div className="formbg-inner dark:bg-white"></div></div>
+          <div className="formbg"><div className="formbg-inner dark:bg-gradient-to-tr from-white via-sky-400/90 to-sky-800"></div></div>
           <div className="formtext">Registrati</div>
         </button>
 

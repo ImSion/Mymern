@@ -38,12 +38,12 @@ export default function Home() {
         }
     }, []);
 
-    // Effetto per caricare i post al montaggio del componente
+    // Per caricare i post al montaggio del componente
     useEffect(() => {
         fetchPosts();
     }, [fetchPosts]);
 
-    // Effetto per l'animazione del titolo
+    // Per l'animazione del titolo
     useEffect(() => {
         let index = 0;
         const intervalId = setInterval(() => {
@@ -60,16 +60,19 @@ export default function Home() {
         return () => clearInterval(intervalId);
     }, []);
 
-    // Effetto per filtrare i post in base alla ricerca
+    // Per filtrare i post in base alla ricerca
     useEffect(() => {
         if (search.trim() === '') {
             setFilteredPosts(allPosts);
         } else {
+            const searchLower = search.toLowerCase().trim();
             const filtered = allPosts.filter(post => {
                 if (searchOption === 'titolo') {
-                    return post.titolo.toLowerCase().includes(search.toLowerCase());
+                    // Controlla se il titolo inizia con la stringa di ricerca
+                    return post.titolo.toLowerCase().startsWith(searchLower);
                 } else if (searchOption === 'author') {
-                    return post.author.toLowerCase().includes(search.toLowerCase());
+                    // Controlla se l'autore inizia con la stringa di ricerca
+                    return post.author.toLowerCase().startsWith(searchLower);
                 }
                 return false;
             });
@@ -99,7 +102,7 @@ export default function Home() {
         window.scrollTo(0, 0);
     };
 
-    // Effetto per animare l'apparizione dei post
+    // Per animare l'apparizione dei post
     useEffect(() => {
         const timer = setTimeout(() => {
             const postElements = document.querySelectorAll('.post-card');
@@ -143,26 +146,42 @@ export default function Home() {
                 </div>
 
                 <div className=' flex flex-wrap transition-all ease-in-out duration-300  justify-center p-3 min-h-screen relative'>
-                    {currentPosts.map((post) => (
-                        <div key={post._id} className='post-card relative overflow-hidden rounded-lg w-[300px] xl:w-[550px] h-[400px] dark:shadow-md dark:hover:shadow-lg dark:hover:shadow-sky-500 dark:shadow-sky-500 transition-all ease-in-out duration-300 mx-3 mb-8 mt-10 group'>
-                            <div className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
-                                style={{
-                                    backgroundImage: `url(${post.cover})`
-                                }}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
-                            <Link to={`/post/${post._id}`} className="absolute inset-0 z-10">
-                                <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
-                                    <h2 className='text-white text-xl font-bold mb-2 line-clamp-2'>{post.titolo}</h2>
-                                    <Link to={`/AuthorPosts/${post.author}`} className="block">
-                                        <p className='hover:scale-105 hover:bg-slate-200 dark:text-white dark:hover:bg-slate-500 rounded-full hover:shadow-md hover:shadow-sky-700 transition-transform duration-500 inline-block'>
-                                            Autore: {post.author}
-                                        </p>
-                                    </Link>
-                                </div>
-                            </Link>
+                {currentPosts.map((post) => (
+                    <div key={post._id} className='post-card relative overflow-hidden rounded-lg w-[300px] xl:w-[550px] h-[400px] shadow-[_7px_7px_10px] shadow-gray-600 dark:shadow-md dark:hover:shadow-lg dark:hover:shadow-sky-500 dark:shadow-sky-500 transition-all ease-in-out duration-300 mx-3 mb-8 mt-10 group'>
+                        <div className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
+                            style={{
+                                backgroundImage: `url(${post.cover})`
+                            }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+                        
+                        {/* Badge per il numero di commenti */}
+                        <div className="absolute top-2 right-0 bg-white dark:bg-gray-800 text-black dark:text-white px-2 py-1 text-xs font-bold z-20">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                            </svg>
+                            {post.comments ? post.comments.length : 0}
                         </div>
-                    ))}
+
+                        <div className='absolute top-2 right-10 bg-white dark:bg-gray-800 text-black dark:text-white flex items-center justify-center rounded-l-full w-10 h-[25.5px] text-xs font-bold'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4 mr-1">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                           {post.readTime.value}
+                        </div>
+                
+                        <Link to={`/post/${post._id}`} className="absolute inset-0 z-10">
+                            <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
+                                <h2 className='text-white text-xl font-bold mb-2 line-clamp-2'>{post.titolo}</h2>
+                                <Link to={`/AuthorPosts/${post.author}`} className="block">
+                                    <p className='hover:scale-105 hover:bg-slate-200 dark:text-white dark:hover:bg-slate-500 rounded-full hover:shadow-md hover:shadow-sky-700 transition-transform duration-500 inline-block'>
+                                        Autore: {post.author}
+                                    </p>
+                                </Link>
+                            </div>
+                        </Link>
+                    </div>
+                ))}
                 </div>
 
                 {filteredPosts.length > postsPerPage && (
