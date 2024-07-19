@@ -67,7 +67,7 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">POVBlogs</span>
       </NavbarBrand>
       
-      <div className="flex items-center justify-center md:order-2">
+      <div className="flex items-center justify-center ml-7 xs:ml-0 md:order-2">
         {isAuthenticated && (
           <Link to='/create' className="flex ml-16 xs:ml-0 items-center mr-3 transition-all ease-in-out duration-500 hover:scale-110">
             <svg 
@@ -141,9 +141,9 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
         <NavbarLink className="hover:animate-pulse" active>
           <Link to='/home' >Home</Link>
         </NavbarLink>
-        <NavbarLink href="#">Services</NavbarLink>
-        <NavbarLink href="#">Pricing</NavbarLink>
-        <NavbarLink href="#">Contact</NavbarLink>
+        <NavbarLink>
+          <Link to='/authors' className="hover:animate-pulse">Autori</Link>
+        </NavbarLink>
       </NavbarCollapse>
     </Navbar>
   );

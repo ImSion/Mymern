@@ -122,7 +122,7 @@ export default function Home() {
             <div className='text-center relative'>
                 <AnimatedBackground />
                 
-                <h1 className='dark:bg-transparent dark:text-white dark:shadow-[0px_-10px_10px] dark:shadow-sky-600 text-3xl sm:text-5xl py-3 font-sans font-semibold h-12 flex items-center justify-center'>
+                <h1 className='dark:bg-transparent dark:text-white text-3xl sm:text-5xl py-3 font-sans font-semibold h-12 flex items-center justify-center'>
                     {titleText}
                     <span className="animate-blink">|</span>
                 </h1>
@@ -137,7 +137,7 @@ export default function Home() {
                                 onChange={handleSearch}
                                 className='border-none focus:outline-none focus:ring-0 rounded-full p-2 mr-2 h-10'
                             />
-                            <select value={searchOption} onChange={handleOptionChange} className='border-none focus:outline-none focus:ring-0 rounded-lg p-2 h-10'>
+                            <select value={searchOption} onChange={handleOptionChange} className='border-none focus:outline-none focus:ring-0 rounded-lg p-2 h-10 text-gray-800'>
                                 <option value='titolo'>Titolo</option>
                                 <option value='author'>Autore</option>
                             </select>
@@ -174,7 +174,7 @@ export default function Home() {
                             <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
                                 <h2 className='text-white text-xl font-bold mb-2 line-clamp-2'>{post.titolo}</h2>
                                 <Link to={`/AuthorPosts/${post.author}`} className="block">
-                                    <p className='hover:scale-105 hover:bg-slate-200 dark:text-white dark:hover:bg-slate-500 rounded-full hover:shadow-md hover:shadow-sky-700 transition-transform duration-500 inline-block'>
+                                    <p className='hover:scale-105 hover:bg-slate-200 dark:text-white dark:hover:bg-slate-500 items-center justify-center rounded-lg bg-white dark:bg-gray-800 px-1 hover:shadow-md hover:shadow-sky-700 transition-transform duration-500 inline-block'>
                                         Autore: {post.author}
                                     </p>
                                 </Link>

@@ -12,6 +12,7 @@ import Register from "./Pages/Register";
 import AnimatedBackground from "./components/AnimatedBackground";
 import NightSkyBackground from './components/NightSkyBackground';
 import './Style/AnimatedBackground.css';
+import AuthorsList from "./Pages/AuthorsList";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -53,6 +54,7 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/post/:id" element={<PostDetail />} />
               <Route path="/AuthorPosts/:authorEmail" element={<AuthorPosts />} />
+              <Route path="/Authors" element={<AuthorsList />} />
               <Route
                 path="/create"
                 element={isAuthenticated ? <CreatePost /> : <Navigate to="/login" />}

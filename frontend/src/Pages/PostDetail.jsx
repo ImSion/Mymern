@@ -36,16 +36,17 @@ export default function PostDetail() {
 
   // Rendering del componente
   return (
-    <div className="container min-h-screen">
-      <article className="post-detail">
+    <div className="min-h-screen">
+      <article className="post-detail flex flex-col items-center justify-center mt-10">
         {/* Immagine di copertina del post */}
-        <img src={post.cover} alt={post.title} className="post-cover" />
+        <img src={post.cover} alt={post.title} className="post-cover w-[98%] sm:w-[800px] rounded-md" />
         {/* Titolo del post */}
         <h1>{post.title}</h1>
         {/* Dati del post */}
-        <div className="post-meta">
+        <div className="post-meta flex flex-col items-center">
           <span>Categoria: {post.category}</span>
           <span>Autore: <Link to={`/AuthorPosts/${post.author}`} key={post._id}>{post.author}</Link></span>
+              
           <span>
             Tempo di lettura: {post.readTime.value} {post.readTime.unit}
           </span>

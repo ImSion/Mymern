@@ -71,8 +71,8 @@ const AuthorPosts = () => {
                 setIsLoading(true);
                 console.log("Fetching data for author:", authorEmail);
                 const [postsResponse, authorResponse, currentUserResponse] = await Promise.all([
-                    getAuthorPosts(authorEmail.toLowerCase()),
-                    getAuthorByEmail(authorEmail.toLowerCase()),
+                    getAuthorPosts(authorEmail),
+                    getAuthorByEmail(authorEmail),
                     getMe()
                 ]);
                 console.log("Dati ricevuti:", { 
@@ -165,15 +165,15 @@ const AuthorPosts = () => {
     }
 
     return (
-        <div>
-            <h1 className='text-center text-xl font-bold pt-5'>Profilo di {author.nome}</h1>
+        <div className='min-h-screen'>
+            <h1 className='text-center text-xl font-bold pt-5 dark:text-white'>Profilo di {author.nome}</h1>
 
             <div className='flex flex-col items-end pr-5'>
                 <div className='flex flex-col items-center'>
-                    <h2 onClick={toggleDropdown} className='text-lg font-semibold cursor-pointer border-2 p-3 hover:shadow-md transition-all ease-in-out duration-500 hover:scale-105 rounded-full h-5 text-center flex items-center mb-2'>{author.nome} {author.cognome}</h2>
+                    <h2 onClick={toggleDropdown} className='text-lg font-semibold cursor-pointer border-2 p-3 hover:shadow-md transition-all ease-in-out duration-500 hover:scale-105 rounded-full h-5 text-center flex items-center mb-2 dark:text-white shadow-md shadow-sky-500'>{author.nome} {author.cognome}</h2>
                     <div className={`text-center dropdown-content ${isDropdownOpen ? 'open' : ''}`}>
-                        <h3 className='email'>{author.email}</h3>
-                        <h3 className='birthday'>Nato il {author.data_di_nascita}</h3>                                 
+                        <h3 className='email dark:text-white'>{author.email}</h3>
+                        <h3 className='birthday dark:text-white'>Nato il {author.data_di_nascita}</h3>                                 
                     </div>
                     <div className='h-32 w-32 rounded-full relative'>
                         <img className='h-32 w-32 rounded-full' src={author.avatar} alt={author.nome} />
@@ -206,7 +206,7 @@ const AuthorPosts = () => {
                     <p className="text-center w-full">Questo autore non ha ancora pubblicato post.</p>
                 ) : (
                     posts.map((post) => (
-                        <div className='flex min-h-screen flex-col items-center mb-4 pt-10 transition-all ease-in-out duration-500' key={post._id}>
+                        <div className='flex flex-col items-center mb-4 pt-10 transition-all ease-in-out duration-500' key={post._id}>
                             <div className='relative'>
                                 <Link to={`/post/${post._id}`}>
                                     <img className='w-[600px] xl:w-[550px] h-full rounded-2xl' src={post.cover} alt={post.titolo} />
