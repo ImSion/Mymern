@@ -9,6 +9,8 @@ export default function PostDetail() {
   const [post, setPost] = useState(null);
   // Nuovo stato per memorizzare i dati dell'utente corrente
   const [currentUser, setCurrentUser] = useState(null);
+  // Stato per il testo animato
+  const [animatedText, setAnimatedText] = useState('');
   // Estrae l'id del post dai parametri dell'URL
   const { id } = useParams();
 
@@ -31,6 +33,25 @@ export default function PostDetail() {
     fetchPostAndUser();
   }, [id]); // L'effetto si attiva quando l'id cambia
 
+  // Effetto per l'animazione del testo
+  useEffect(() => {
+    if (post && post.content) {
+      let index = 0;
+      const intervalId = setInterval(() => {
+        setAnimatedText((prev) => {
+          if (index < post.content.length) {
+            index++;
+            return post.content.slice(0, index);
+          }
+          clearInterval(intervalId);
+          return prev;
+        });
+      }, 50); // Regola la velocità dell'animazione qui
+
+      return () => clearInterval(intervalId);
+    }
+  }, [post]);
+
   // Se il post non è ancora stato caricato, mostra un messaggio di caricamento
   if (!post) return <div>Caricamento...</div>;
 
@@ -38,24 +59,28 @@ export default function PostDetail() {
   return (
     <div className="min-h-screen">
       <article className="post-detail flex flex-col items-center justify-center mt-10">
-        {/* Immagine di copertina del post */}
-        <img src={post.cover} alt={post.title} className="post-cover w-[98%] sm:w-[800px] rounded-md" />
-        {/* Titolo del post */}
-        <h1>{post.title}</h1>
-        {/* Dati del post */}
-        <div className="post-meta flex flex-col items-center">
-          <span>Categoria: {post.category}</span>
-          <span>Autore: <Link to={`/AuthorPosts/${post.author}`} key={post._id}>{post.author}</Link></span>
-              
-          <span>
-            Tempo di lettura: {post.readTime.value} {post.readTime.unit}
-          </span>
+        {/* Immagine di copertina del post e titolo del post */}
+        <div className="relative flex flex-col items-center w-[99%] lg:w-[850px] 2xl:w-[1000px] ">
+          <img src={post.cover} alt={post.title} className="w-[98%] lg:w-[850px] 2xl:w-[1000px] rounded-lg shadow-[_1px_2px_10px] shadow-gray-700 dark:shadow-sky-500" />         
+          <h1 className="absolute text-white top-0 text-xl font-bold line-clamp-2 mt-1 title-text rounded-full p-2">{post.titolo}</h1>
+                
+          {/* Dati del post */}
+          <div className="xs:h-4 sm:h-6 w-[98%] lg:w-[850px] 2xl:w-[1000px] bg-slate-100 bg-opacity-60 dark:bg-gray-800 dark:bg-opacity-60 dark:text-white px-2 sm:px-4 mb-2 flex justify-between items-center absolute bottom-0 font-bold line-clamp-2 text-black">
+            <span className="text-mbl md:text-base lg:text-lg transition-all ease-in-out duration-300">Categoria: {post.categoria}</span>
+            <span className="text-mbl md:text-base lg:text-lg transition-all ease-in-out duration-300 hover:scale-105 hover:mb-1 hover:shadow-md hover:shadow-sky-500 rounded-full p-1">Autore: <Link to={`/AuthorPosts/${post.author}`} key={post._id}>{post.author}</Link></span>      
+            <span className="text-mbl md:text-base lg:text-lg transition-all ease-in-out duration-300">
+              Tempo di lettura: {post.readTime.value} {post.readTime.unit}
+            </span>
+          </div>
         </div>
+        
         {/* Contenuto del post */}
-        <div
-          className="post-content"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
+        <div className="border dark:border-sky-500 rounded-lg p-2 mt-3 w-[97%] lg:w-[850px] 2xl:w-[1000px] text-black bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-60 dark:text-white">
+          <div
+            className="post-content text-xs sm:text-base"
+            dangerouslySetInnerHTML={{ __html: animatedText }}
+          /> 
+        </div>
         
         {/* Aggiunge la sezione commenti, passando l'id del post e i dati dell'utente corrente */}
         <CommentSection 

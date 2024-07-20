@@ -173,9 +173,10 @@ export default function Home() {
                         <Link to={`/post/${post._id}`} className="absolute inset-0 z-10">
                             <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
                                 <h2 className='text-white text-xl font-bold mb-2 line-clamp-2'>{post.titolo}</h2>
-                                <Link to={`/AuthorPosts/${post.author}`} className="block">
-                                    <p className='hover:scale-105 hover:bg-slate-200 dark:text-white dark:hover:bg-slate-500 items-center justify-center rounded-lg bg-white dark:bg-gray-800 px-1 hover:shadow-md hover:shadow-sky-700 transition-transform duration-500 inline-block'>
-                                        Autore: {post.author}
+                                <Link to={`/AuthorPosts/${post.author}`} className="flex flex-col items-center">
+                                    <h1 className='text-white'>Autore</h1>
+                                    <p className='hover:scale-105 text-white items-center justify-center rounded-lg px-1 hover:shadow-md hover:shadow-sky-700 transition-transform duration-500 inline-block'>
+                                         {post.author}
                                     </p>
                                 </Link>
                             </div>
@@ -189,7 +190,7 @@ export default function Home() {
                         <button
                             onClick={() => paginate(currentPage - 1)}
                             disabled={currentPage === 1}
-                            className="mx-1 px-1 shadow-md shadow-gray-700 rounded-full py-1 border bg-sky-700 text-white disabled:bg-gray-500 disabled:text-gray-800"
+                            className="mx-1 px-1 shadow-md shadow-gray-700 rounded-full py-1 border bg-transparent transition-all ease-in-out duration-300 hover:bg-sky-700 text-sky-900 hover:text-black disabled:bg-transparent disabled:text-gray-800 disabled:shadow-none disabled:border-none"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -201,7 +202,7 @@ export default function Home() {
                         <button
                             onClick={() => paginate(currentPage + 1)}
                             disabled={currentPage === Math.ceil(filteredPosts.length / postsPerPage)}
-                            className="mx-1 px-1 shadow-md shadow-gray-700 rounded-full py-1 border bg-sky-700 text-white disabled:bg-gray-500 disabled:text-gray-800"
+                            className="mx-1 px-1 shadow-md shadow-gray-700 rounded-full py-1 border bg-transparent transition-all ease-in-out duration-300 hover:bg-sky-700 text-sky-900 hover:text-black disabled:bg-transparent disabled:text-gray-800 disabled:shadow-none disabled:border-none"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />

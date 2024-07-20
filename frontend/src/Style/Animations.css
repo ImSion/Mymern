@@ -1,3 +1,11 @@
+.title-text {
+  text-shadow: 1px 1px 10px black;
+}
+
+.text-mbl {
+  font-size: 8.5px;
+}
+
 
 /*  animazioni Authorposts */
 .dropdown-content {

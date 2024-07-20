@@ -142,6 +142,14 @@ const AuthorPosts = () => {
         setEditingPost(post);
     };
 
+    const truncateText = (text, wordCount) => {
+        const words = text.split(' ');
+        if (words.length > wordCount) {
+            return words.slice(0, wordCount).join(' ') + '...';
+        }
+        return text;
+    };
+
     const handleSaveEdit = async (editedPost) => {
         try {
             await updatePost(editedPost._id, editedPost);
@@ -209,7 +217,7 @@ const AuthorPosts = () => {
                         <div className='flex flex-col items-center mb-4 pt-10 transition-all ease-in-out duration-500' key={post._id}>
                             <div className='relative'>
                                 <Link to={`/post/${post._id}`}>
-                                    <img className='w-[600px] xl:w-[550px] h-full rounded-2xl' src={post.cover} alt={post.titolo} />
+                                    <img className='w-[100%] lg:w-[850px] 2xl:w-[1000px] h-full rounded-2xl' src={post.cover} alt={post.titolo} />
                                 </Link> 
                                 {currentUser && currentUser.email === authorEmail && (
                                     <div className={`absolute top-4 right-0 flex flex-col space-y-2 transition-all duration-1000 ease-in-out ${showButtons ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
@@ -239,7 +247,7 @@ const AuthorPosts = () => {
                                 )}
                             </div>
                             <h2>{post.titolo}</h2>
-                            <p>{post.content}</p>
+                            <p>{truncateText(post.content, 10)}</p>
                         </div>
                     ))
                 )}   

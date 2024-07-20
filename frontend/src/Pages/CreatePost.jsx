@@ -12,7 +12,7 @@ export default function CreatePost() {
     // Stato per memorizzare tutti i dati del post
     const [post, setPost] = useState({
         titolo: '',
-        categoria: '', // Questo sarà ora selezionato da un menu a discesa
+        categoria: '', 
         content: '',
         cover: '',
         readTime: {
@@ -138,7 +138,7 @@ export default function CreatePost() {
                         name='content'
                         value={post.content}
                         onChange={handleChange}
-                        className='w-[400px] sm:w-[500px] h-52 border-2 rounded-xl'
+                        className='w-[99%] sm:w-[500px] h-52 border-2 rounded-xl'
                         required
                     ></textarea>
                 </div>
@@ -155,7 +155,7 @@ export default function CreatePost() {
                     />
                 </div>
                 {/* Campi per il tempo di lettura e l'autore */}
-                <div className='flex gap-3'>
+                <div className='flex flex-col items-center sm:flex-row gap-3'>
                     <div className='form-group w-48 flex flex-col items-center'>
                         <label className='dark:text-white text-xl'>Tempo di lettura <span className='hidden'>(minuti)</span></label>
                         <input

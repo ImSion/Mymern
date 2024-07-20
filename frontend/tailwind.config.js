@@ -16,16 +16,18 @@ export default {
       }
     },
     screens: {
+      
       'xs': '378px',
-      // => @media (min-width: 450px)
+      // => @media (min-width: 378px)
+      
       'sm': '640px',
       // => @media (min-width: 640px) 
 
       'md': '768px',
       // => @media (min-width: 768px) 
 
-      'lg': '1024px',
-      // => @media (min-width: 1024px) 
+      'lg': '1023px',
+      // => @media (min-width: 1023px) 
 
       'xl': '1280px',
       // => @media (min-width: 1280px) 
