@@ -5,32 +5,28 @@ import AnimatedBackground from '../components/AnimatedBackground';
 import '../Style/Animations.css';
 
 export default function AuthorsList() {
-    // Stati per gestire i dati e lo stato dell'applicazione
-    const [allAuthors, setAllAuthors] = useState([]); // Tutti gli autori
-    const [filteredAuthors, setFilteredAuthors] = useState([]); // Autori filtrati per la ricerca
-    const [search, setSearch] = useState(''); // Testo di ricerca
-    const [isLoading, setIsLoading] = useState(true); // Stato di caricamento
-    const [error, setError] = useState(null); // Gestione degli errori
-    const [visibleCards, setVisibleCards] = useState([]); // Per l'animazione delle card
+    const [allAuthors, setAllAuthors] = useState([]);
+    const [filteredAuthors, setFilteredAuthors] = useState([]);
+    const [search, setSearch] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [visibleCards, setVisibleCards] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
-    // Funzione per recuperare gli autori dal server
-    const fetchAuthors = useCallback(async () => {
+    const fetchAuthors = useCallback(async (page = 1) => {
         try {
             setIsLoading(true);
-            const response = await getAuthors();
-            console.log("Risposta API getAuthors:", response); // Log per debug
+            const response = await getAuthors(page);
+            console.log("Risposta API getAuthors:", response);
 
-            // Gestione flessibile della struttura dei dati
-            let authorsData = response.data;
-            if (response.data && response.data.authors) {
-                authorsData = response.data.authors;
-            }
+            let authorsData = response.data.authors || response.data;
+            let totalPagesCount = response.data.totalPages || 1;
 
             if (!Array.isArray(authorsData)) {
                 throw new Error('I dati degli autori non sono in un formato valido');
             }
 
-            // Aggiunta del conteggio dei post per ogni autore
             const authorsWithPostCount = await Promise.all(
                 authorsData.map(async (author) => {
                     try {
@@ -42,23 +38,25 @@ export default function AuthorsList() {
                     }
                 })
             );
-            console.log("Autori elaborati:", authorsWithPostCount); // Log per debug
-            setAllAuthors(authorsWithPostCount);
-            setFilteredAuthors(authorsWithPostCount);
+
+            // Aggiorna gli autori solo se è la prima pagina, altrimenti aggiungi i nuovi
+            setAllAuthors(prevAuthors => 
+                page === 1 ? authorsWithPostCount : [...prevAuthors, ...authorsWithPostCount]
+            );
+            setTotalPages(totalPagesCount);
+            setCurrentPage(page);
         } catch (err) {
             console.error('Errore nella richiesta degli Autori', err);
-            setError('Si è verificato un errore nel caricamento degli autori.');
+            setError(`Si è verificato un errore nel caricamento degli autori: ${err.message}`);
         } finally {
             setIsLoading(false);
         }
     }, []);
 
-    // Effetto per caricare gli autori al montaggio del componente
     useEffect(() => {
         fetchAuthors();
     }, [fetchAuthors]);
 
-    // Effetto per filtrare gli autori in base alla ricerca
     useEffect(() => {
         if (search.trim() === '') {
             setFilteredAuthors(allAuthors);
@@ -73,7 +71,6 @@ export default function AuthorsList() {
         }
     }, [search, allAuthors]);
 
-    // Effetto per animare l'apparizione delle card
     useEffect(() => {
         const timer = setTimeout(() => {
             const cardElements = document.querySelectorAll('.post-card');
@@ -87,18 +84,20 @@ export default function AuthorsList() {
         return () => clearTimeout(timer);
     }, [filteredAuthors]);
 
-    // Gestore per il cambiamento del testo di ricerca
     const handleSearch = (event) => {
         setSearch(event.target.value);
     };
 
-    // Rendering condizionale per lo stato di caricamento
-    if (isLoading) return <div className="text-center mt-10">Caricamento...</div>;
+    const loadMoreAuthors = () => {
+        if (currentPage < totalPages) {
+            fetchAuthors(currentPage + 1);
+        }
+    };
 
-    // Rendering condizionale per lo stato di errore
+    if (isLoading && currentPage === 1) return <div className="text-center mt-10">Caricamento...</div>;
+
     if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
 
-    // Rendering principale del componente
     return (
         <>
             <AnimatedBackground />
@@ -107,7 +106,6 @@ export default function AuthorsList() {
                     Lista degli Autori
                 </h1>
                 
-                {/* Barra di ricerca */}
                 <div className='mt-3 rounded-full flex justify-center items-center'>
                     <div className='p-3 rounded-full bg-white h-12 flex border-2 justify-between items-center mt-2'>
                         <input
@@ -120,10 +118,9 @@ export default function AuthorsList() {
                     </div>
                 </div>
 
-                {/* Griglia degli autori */}
                 <div className='flex flex-wrap transition-all ease-in-out duration-300 justify-center p-3 min-h-screen relative'>
                     {filteredAuthors.map((author, index) => (
-                        <Link to={`/AuthorPosts/${author.email}`} key={author._id} className="block m-4 hover:scale-105 transition-transform duration-300">
+                        <Link to={`/AuthorPosts/${author.email}`} key={`${author._id}-${index}`} className="block m-4 hover:scale-105 transition-transform duration-300">
                             <div className={`post-card bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform duration-300 w-64 ${visibleCards.includes(index) ? 'visible' : ''}`}>
                                 <img src={author.avatar} alt={`${author.nome} ${author.cognome}`} className="w-full h-48 object-cover" />
                                 <div className="p-4">
@@ -135,6 +132,19 @@ export default function AuthorsList() {
                         </Link>
                     ))}
                 </div>
+
+                {currentPage < totalPages && (
+                    <button 
+                        onClick={loadMoreAuthors}
+                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                    >
+                        Carica altri autori
+                    </button>
+                )}
+
+                {isLoading && currentPage > 1 && (
+                    <div className="mt-4 text-center">Caricamento altri autori...</div>
+                )}
             </div>
         </>
     );

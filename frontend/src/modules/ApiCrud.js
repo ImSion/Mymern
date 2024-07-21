@@ -2,7 +2,7 @@ import axiosApi from './axios'
 
 // CRUD per gli autori
 
-export const getAuthors = () => axiosApi.get("/authors"); // riceviamo tutti gli autori
+export const getAuthors = (page = 1) => axiosApi.get(`/authors?page=${page}`); // riceviamo tutti gli autori
 export const getAuthor = (id) => axiosApi.get(`/authors/${id}`); // riceviamo un singolo autore
 export const getAuthorByEmail = (email) => axiosApi.get(`/authors/email/${email}`); // riceviamo un autore tramite la mail
 export const createAuthor = (authorData) => axiosApi.post("/authors/", authorData); // creiamo un autore
