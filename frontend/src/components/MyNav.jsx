@@ -88,22 +88,22 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
   };
 
   return (
-    <Navbar fluid className="dark:shadow-lg dark:shadow-sky-600">
+    <Navbar fluid className="dark:shadow-lg dark:shadow-sky-600 fixed w-full z-10">
 
       <NavbarBrand href="/home" className="mb-2 xs:mb-0 ">
         <Link to='/home'>
           <img 
             src="https://m.media-amazon.com/images/M/MV5BNDQzNDViNDYtNjE2Ny00YmNhLWExZWEtOTIwMDA1YjY5NDBhXkEyXkFqcGdeQXVyODg3NDc1OTE@._V1_QL75_UX190_CR0,2,190,281_.jpg"
-            className="ml-28 xs:ml-0 mr-3 h-6 w-6 sm:h-6 sm:w-6 md:h-9 md:w-9 lg:h-12 lg:w-12 shadow-[0px_0px_10px] shadow-sky-500 rounded-full"
+            className="xs:ml-0 mr-3 h-6 w-6 sm:h-6 sm:w-6 md:h-9 md:w-9 lg:h-12 lg:w-12 shadow-[0px_0px_10px] shadow-sky-500 rounded-full"
             alt="POVBlogs Logo"
           />
         </Link>
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">POVBlogs</span>
+        <span className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white">POVBlogs</span>
       </NavbarBrand>
       
-      <div className="flex items-center justify-center ml-7 xs:ml-0 md:order-2">
+      <div className="flex items-center justify-center xs:ml-0 md:order-2">
         {isAuthenticated && (
-          <Link to='/create' className="flex ml-16 xs:ml-0 items-center mr-3 transition-all ease-in-out duration-500 hover:scale-110">
+          <Link to='/create' className="flex xs:ml-0 items-center mr-3 transition-all ease-in-out duration-500 hover:scale-110">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
               fill="none" 
@@ -119,7 +119,7 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
         {location.pathname === '/home' && (
           <button 
             onClick={toggleSearchVisibility} 
-            className="mr-3 flex items-center justify-center border-2 border-[#64748b] hover:shadow-[inset_0px_0px_8px] dark:shadow-sky-500 rounded-full w-8 h-8 transition-all ease-in-out duration-500 hover:scale-110"
+            className="mr-3 flex items-center justify-center border-2 border-[#64748b] hover:shadow-[inset_0px_0px_8px] dark:shadow-sky-500 rounded-full w-6 h-6 sm:w-8 sm:h-8 transition-all ease-in-out duration-500 hover:scale-110"
           >
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -127,14 +127,14 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
               viewBox="0 0 24 24" 
               strokeWidth={1.5} 
               stroke="currentColor" 
-              className="size-5 rounded-full p-0 dark:text-sky-500"
+              className="size-4 sm:size-5 rounded-full p-0 dark:text-sky-500"
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
             </svg>
           </button>
         )}
         <div className="flex items-center transition-all ease-in-out duration-500 hover:scale-110">
-          <DarkThemeToggle onClick={handleDarkModeToggle} className="mr-3 hover:shadow-[inset_0px_0px_8px] dark:hover:shadow-amber-300 dark:hover:text-amber-300 hover:shadow-sky-800 hover:text-sky-800 hover:bg-transparent rounded-full border-2 border-slate-500 p-1 h-8 w-8 transition-all ease-in-out duration-500 hover:scale-105"/>
+          <DarkThemeToggle onClick={handleDarkModeToggle} className="mr-3 hover:shadow-[inset_0px_0px_8px] dark:hover:shadow-amber-300 dark:hover:text-amber-300 hover:shadow-sky-800 hover:text-sky-800 hover:bg-transparent rounded-full border-2 border-slate-500 p-1 w-6 h-6 sm:h-8 sm:w-8 flex items-center transition-all ease-in-out duration-500 hover:scale-105"/>
         </div>
         {isAuthenticated ? (
           author && (
@@ -160,11 +160,11 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
           )
         ) : (
           <div>
-            <Link to="/Login" className="nav-link">
+            <Link to="/Login" className="nav-link text-sm sm:text-base">
               Login
             </Link>
-            <span> o </span>
-            <Link to="/Register">
+            <span className="text-sm sm:text-base"> o </span>
+            <Link to="/Register" className="text-sm sm:text-base">
                Registrati
             </Link>
           </div>

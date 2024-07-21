@@ -58,7 +58,7 @@ export default function PostDetail() {
   // Rendering del componente
   return (
     <div className="min-h-screen">
-      <article className="post-detail flex flex-col items-center justify-center mt-10">
+      <article className="post-detail flex flex-col items-center justify-center pt-24">
         {/* Immagine di copertina del post e titolo del post */}
         <div className="relative flex flex-col items-center w-[99%] lg:w-[850px] 2xl:w-[1000px] ">
           <img src={post.cover} alt={post.title} className="w-[98%] lg:w-[850px] 2xl:w-[1000px] rounded-lg shadow-[_1px_2px_10px] shadow-gray-700 dark:shadow-sky-500" />         

@@ -55,7 +55,7 @@ export default function Home() {
                 clearInterval(intervalId);
                 return prev;
             });
-        }, 200); // qui si regola la velocità dell'animazione
+        }, 100); // qui si regola la velocità dell'animazione
 
         return () => clearInterval(intervalId);
     }, []);
@@ -122,7 +122,7 @@ export default function Home() {
             <div className='text-center relative'>
                 <AnimatedBackground />
                 
-                <h1 className='dark:bg-transparent mt-3 dark:text-white text-3xl sm:text-5xl py-3 font-sans font-semibold h-12 flex items-center justify-center'>
+                <h1 className='dark:bg-transparent dark:text-white text-3xl sm:text-5xl py-3 pt-28 font-sans font-semibold h-12 flex items-center justify-center'>
                     {titleText}
                     <span className="animate-blink">|</span>
                 </h1>
@@ -145,9 +145,9 @@ export default function Home() {
                     )}
                 </div>
 
-                <div className=' flex flex-wrap transition-all ease-in-out duration-300  justify-center p-3 min-h-screen relative'>
+                <div className='mt-5 flex flex-wrap transition-all ease-in-out duration-300  justify-center p-3 min-h-screen relative'>
                 {currentPosts.map((post) => (
-                    <div key={post._id} className='post-card relative overflow-hidden rounded-lg w-[300px] xl:w-[550px] h-[400px] shadow-[_7px_7px_10px] shadow-gray-600 dark:shadow-md dark:hover:shadow-lg dark:hover:shadow-sky-500 dark:shadow-sky-500 transition-all ease-in-out duration-300 mx-3 mb-8 mt-10 group'>
+                    <div key={post._id} className='post-card relative overflow-hidden rounded-lg w-[140px] h-[230px] xs:w-[167px] xs:h-[250px] sm:w-[300px] xl:w-[550px] sm:h-[400px] shadow-[_7px_7px_10px] shadow-gray-600 dark:shadow-md dark:hover:shadow-lg dark:hover:shadow-sky-500 dark:shadow-sky-500 transition-all ease-in-out duration-300 mx-2 mb-8 mt-10 group'>
                         <div className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
                             style={{
                                 backgroundImage: `url(${post.cover})`
@@ -156,13 +156,13 @@ export default function Home() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
                         
                         {/* Badge per il numero di commenti */}
-                        <div className="flex rounded-l-full absolute top-2 right-0 bg-white dark:bg-gray-800 text-black dark:text-white px-2 py-1 text-xs font-bold z-20">
+                        <div className="flex items-center rounded-l-full absolute top-2 right-0 bg-white dark:bg-gray-800 text-black dark:text-white px-1 sm:px-2 py-1 text-xs font-bold z-20">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                             </svg>
                             {post.comments ? post.comments.length : 0}
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4 mr-1 ml-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3  sm:w-4 sm:h-4 mr-1 ml-2">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                             </svg>
                            {post.readTime.value}
@@ -170,10 +170,10 @@ export default function Home() {
                 
                         <Link to={`/post/${post._id}`} className="absolute inset-0 z-10">
                             <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
-                                <h2 className='text-white text-xl font-bold mb-2 line-clamp-2'>{post.titolo}</h2>
+                                <h2 className='text-white text-xs xs:text-sm sm:text-xl font-bold mb-2 line-clamp-2'>{post.titolo}</h2>
                                 <Link to={`/AuthorPosts/${post.author}`} className="flex flex-col items-center">
-                                    <h1 className='text-white'>Autore</h1>
-                                    <p className='hover:scale-105 text-white items-center justify-center rounded-lg px-1 hover:shadow-md hover:shadow-sky-700 transition-transform duration-500 inline-block'>
+                                    <h1 className='text-white text-xs sm:text-base'>Autore</h1>
+                                    <p className='hover:scale-105 text-xs sm:text-base text-white items-center justify-center rounded-lg px-1 hover:shadow-md hover:shadow-sky-700 transition-transform duration-500 inline-block'>
                                          {post.author}
                                     </p>
                                 </Link>
