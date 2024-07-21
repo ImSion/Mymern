@@ -147,7 +147,7 @@ export default function Home() {
 
                 <div className='mt-5 flex flex-wrap transition-all ease-in-out duration-300  justify-center p-3 min-h-screen relative'>
                 {currentPosts.map((post) => (
-                    <div key={post._id} className='post-card relative overflow-hidden rounded-lg w-[140px] h-[230px] xs:w-[167px] xs:h-[250px] sm:w-[300px] xl:w-[550px] sm:h-[400px] shadow-[_7px_7px_10px] shadow-gray-600 dark:shadow-md dark:hover:shadow-lg dark:hover:shadow-sky-500 dark:shadow-sky-500 transition-all ease-in-out duration-300 mx-2 mb-8 mt-10 group'>
+                    <div key={post._id} className='post-card relative overflow-hidden rounded-lg w-[140px] h-[230px] xs:w-[163px] xs:h-[250px] sm:w-[300px] xl:w-[550px] sm:h-[400px] shadow-[_7px_7px_10px] shadow-gray-600 dark:shadow-md dark:hover:shadow-lg dark:hover:shadow-sky-500 dark:shadow-sky-500 transition-all ease-in-out duration-300 mx-2 mb-8 mt-10 group'>
                         <div className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
                             style={{
                                 backgroundImage: `url(${post.cover})`

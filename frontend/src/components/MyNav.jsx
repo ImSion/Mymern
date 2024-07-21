@@ -103,7 +103,7 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
       
       <div className="flex items-center justify-center xs:ml-0 md:order-2">
         {isAuthenticated && (
-          <Link to='/create' className="flex xs:ml-0 items-center mr-3 transition-all ease-in-out duration-500 hover:scale-110">
+          <Link to='/create' className="flex xs:ml-0 items-center mr-3 w-6 h-6 sm:h-8 sm:w-8 transition-all ease-in-out duration-500 hover:scale-110">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
               fill="none" 
