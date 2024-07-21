@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import { loginUser } from "../modules/ApiCrud";
+import { loginUser, getUserData } from "../modules/ApiCrud";
 import '../components/AnimatedBackground'
 import '../Style/Animations.css'
 import '../Style/Form.css';
@@ -19,6 +19,11 @@ export default function Login({ setIsAuthenticated }) {
     if (token) {
       localStorage.setItem("token", token);
       setIsAuthenticated(true);
+      // Aggiungi questa chiamata per aggiornare immediatamente i dati utente
+      getUserData().then(() => {
+        // Forza un re-render dell'applicazione
+        window.dispatchEvent(new Event('auth-change'));
+      });
       navigate("/home");
     }
   }, [location, navigate, setIsAuthenticated]);
