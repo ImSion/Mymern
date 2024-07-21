@@ -54,19 +54,25 @@ export default function AuthorsList() {
     }, [fetchAuthors]);
 
     // Effetto per filtrare gli autori in base alla ricerca
-    useEffect(() => {
-        if (search.trim() === '') {
-            setFilteredAuthors(allAuthors);
-        } else {
-            const searchLower = search.toLowerCase().trim();
-            const filtered = allAuthors.filter(author => 
-                author.nome.toLowerCase().includes(searchLower) ||
-                author.cognome.toLowerCase().includes(searchLower) ||
-                author.email.toLowerCase().includes(searchLower)
-            );
-            setFilteredAuthors(filtered);
-        }
-    }, [search, allAuthors]);
+useEffect(() => {
+    // Se la stringa di ricerca è vuota, mostra tutti gli autori
+    if (search.trim() === '') {
+        setFilteredAuthors(allAuthors);
+    } else {
+        // Converte la stringa di ricerca in minuscolo e rimuove gli spazi all'inizio e alla fine
+        const searchLower = search.toLowerCase().trim();
+        
+        // Filtra gli autori
+        const filtered = allAuthors.filter(author => 
+            author.nome.toLowerCase().startsWith(searchLower) ||
+            author.cognome.toLowerCase().startsWith(searchLower) ||
+            author.email.toLowerCase().startsWith(searchLower)
+        );
+        
+        // Aggiorna lo stato con gli autori filtrati
+        setFilteredAuthors(filtered);
+    }
+}, [search, allAuthors]);
 
     // Nuovo effetto per animare l'apparizione delle card
     useEffect(() => {
