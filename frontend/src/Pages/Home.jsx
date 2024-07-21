@@ -122,7 +122,7 @@ export default function Home() {
             <div className='text-center relative'>
                 <AnimatedBackground />
                 
-                <h1 className='dark:bg-transparent dark:text-white text-3xl sm:text-5xl py-3 font-sans font-semibold h-12 flex items-center justify-center'>
+                <h1 className='dark:bg-transparent mt-3 dark:text-white text-3xl sm:text-5xl py-3 font-sans font-semibold h-12 flex items-center justify-center'>
                     {titleText}
                     <span className="animate-blink">|</span>
                 </h1>

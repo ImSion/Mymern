@@ -17,32 +17,61 @@ import { getUserData } from "../modules/ApiCrud";
 import { useSearch } from '../modules/SearchContext';
 
 export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode, setIsDarkMode }) {
+  // Hooks per la navigazione e la localizzazione
   const location = useLocation();
-  const [author, setAuthor] = useState(null);
   const navigate = useNavigate();
+  // Stati locali
+  const [author, setAuthor] = useState(null);
+  //Hook personalizzato per la funzionalità ricerca
   const { toggleSearchVisibility } = useSearch();
 
+   // Effetto per controllare lo stato di login e recuperare i dati dell'utente
   useEffect(() => {
-    if (isAuthenticated) {
-      const fetchUserData = async () => {
+    // Funzione per controllare lo stato di login
+    const checkLoginStatus = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
         try {
           const authorData = await getUserData();
           setAuthor(authorData);
+          setIsAuthenticated(true);
         } catch (error) {
-          console.error("Errore nel recupero dei dati dell'autore:", error);
+          console.error("Token non valido:", error);
+          localStorage.removeItem("token");
+          setIsAuthenticated(false);
+          setAuthor(null);
         }
-      };
-      fetchUserData();
-    }
-  }, [isAuthenticated]);
+      } else {
+        setIsAuthenticated(false);
+        setAuthor(null);
+      }
+    };
 
+    // Controlla lo stato di login all'avvio
+    checkLoginStatus();
+
+    // Aggiungi event listeners per controllare lo stato di login
+    window.addEventListener("storage", checkLoginStatus);
+    window.addEventListener("loginStateChange", checkLoginStatus);
+
+    // Cleanup: rimuovi gli event listeners
+    return () => {
+      window.removeEventListener("storage", checkLoginStatus);
+      window.removeEventListener("loginStateChange", checkLoginStatus);
+    };
+  }, [setIsAuthenticated]);
+
+  // Funzione per gestire il logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
     setAuthor(null);
     navigate("/login");
+    // Dispara un evento personalizzato per notificare il cambio di stato del login
+    window.dispatchEvent(new Event("loginStateChange"));
   };
 
+  // Funzione per gestire il click sull'avatar dell'autore
   const handleAuthorClick = () => {
     if (author && author.email) {
       navigate(`/AuthorPosts/${author.email}`);
@@ -54,7 +83,7 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
   };
 
   return (
-    <Navbar fluid>
+    <Navbar fluid className="dark:shadow-lg dark:shadow-sky-600">
 
       <NavbarBrand href="/home" className="mb-2 xs:mb-0 ">
         <Link to='/home'>

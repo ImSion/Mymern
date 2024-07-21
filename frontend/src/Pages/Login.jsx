@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../modules/ApiCrud";
-
 import '../components/AnimatedBackground'
 import '../Style/Animations.css'
 import '../Style/Form.css';
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001"
 
 export default function Login({ setIsAuthenticated }) {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -45,7 +46,7 @@ export default function Login({ setIsAuthenticated }) {
   };
   
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:5001/api/auth/google';
+    window.location.href = `${API_URL}/api/auth/google`;
   };
 
   return (
