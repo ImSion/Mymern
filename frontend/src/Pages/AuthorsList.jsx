@@ -2,31 +2,35 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { getAuthors, getAuthorPosts } from '../modules/ApiCrud';
 import AnimatedBackground from '../components/AnimatedBackground';
-import '../Style/Animations.css'; // Importiamo il file CSS per le animazioni
+import '../Style/Animations.css';
 
 export default function AuthorsList() {
     // Stati per gestire i dati e lo stato dell'applicazione
-    const [allAuthors, setAllAuthors] = useState([]);
-    const [filteredAuthors, setFilteredAuthors] = useState([]);
-    const [search, setSearch] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
-    // Nuovo stato per gestire l'animazione delle card
-    const [visibleCards, setVisibleCards] = useState([]);
+    const [allAuthors, setAllAuthors] = useState([]); // Tutti gli autori
+    const [filteredAuthors, setFilteredAuthors] = useState([]); // Autori filtrati per la ricerca
+    const [search, setSearch] = useState(''); // Testo di ricerca
+    const [isLoading, setIsLoading] = useState(true); // Stato di caricamento
+    const [error, setError] = useState(null); // Gestione degli errori
+    const [visibleCards, setVisibleCards] = useState([]); // Per l'animazione delle card
 
     // Funzione per recuperare gli autori dal server
     const fetchAuthors = useCallback(async () => {
         try {
             setIsLoading(true);
             const response = await getAuthors();
-            console.log("Risposta API getAuthors:", response);
+            console.log("Risposta API getAuthors:", response); // Log per debug
 
-            const authorsData = Array.isArray(response.data) ? response.data : response.data.authors;
+            // Gestione flessibile della struttura dei dati
+            let authorsData = response.data;
+            if (response.data && response.data.authors) {
+                authorsData = response.data.authors;
+            }
 
             if (!Array.isArray(authorsData)) {
                 throw new Error('I dati degli autori non sono in un formato valido');
             }
 
+            // Aggiunta del conteggio dei post per ogni autore
             const authorsWithPostCount = await Promise.all(
                 authorsData.map(async (author) => {
                     try {
@@ -38,6 +42,7 @@ export default function AuthorsList() {
                     }
                 })
             );
+            console.log("Autori elaborati:", authorsWithPostCount); // Log per debug
             setAllAuthors(authorsWithPostCount);
             setFilteredAuthors(authorsWithPostCount);
         } catch (err) {
@@ -54,39 +59,33 @@ export default function AuthorsList() {
     }, [fetchAuthors]);
 
     // Effetto per filtrare gli autori in base alla ricerca
-useEffect(() => {
-    // Se la stringa di ricerca è vuota, mostra tutti gli autori
-    if (search.trim() === '') {
-        setFilteredAuthors(allAuthors);
-    } else {
-        // Converte la stringa di ricerca in minuscolo e rimuove gli spazi all'inizio e alla fine
-        const searchLower = search.toLowerCase().trim();
-        
-        // Filtra gli autori
-        const filtered = allAuthors.filter(author => 
-            author.nome.toLowerCase().startsWith(searchLower) ||
-            author.cognome.toLowerCase().startsWith(searchLower) ||
-            author.email.toLowerCase().startsWith(searchLower)
-        );
-        
-        // Aggiorna lo stato con gli autori filtrati
-        setFilteredAuthors(filtered);
-    }
-}, [search, allAuthors]);
+    useEffect(() => {
+        if (search.trim() === '') {
+            setFilteredAuthors(allAuthors);
+        } else {
+            const searchLower = search.toLowerCase().trim();
+            const filtered = allAuthors.filter(author => 
+                author.nome.toLowerCase().startsWith(searchLower) ||
+                author.cognome.toLowerCase().startsWith(searchLower) ||
+                author.email.toLowerCase().startsWith(searchLower)
+            );
+            setFilteredAuthors(filtered);
+        }
+    }, [search, allAuthors]);
 
-    // Nuovo effetto per animare l'apparizione delle card
+    // Effetto per animare l'apparizione delle card
     useEffect(() => {
         const timer = setTimeout(() => {
             const cardElements = document.querySelectorAll('.post-card');
             cardElements.forEach((element, index) => {
                 setTimeout(() => {
                     setVisibleCards(prev => [...prev, index]);
-                }, index * 100); // Aggiungiamo un ritardo crescente per ogni card
+                }, index * 100);
             });
         }, 100);
 
         return () => clearTimeout(timer);
-    }, [filteredAuthors]); // Rieseguiamo l'effetto quando cambia la lista degli autori filtrati
+    }, [filteredAuthors]);
 
     // Gestore per il cambiamento del testo di ricerca
     const handleSearch = (event) => {
@@ -125,7 +124,6 @@ useEffect(() => {
                 <div className='flex flex-wrap transition-all ease-in-out duration-300 justify-center p-3 min-h-screen relative'>
                     {filteredAuthors.map((author, index) => (
                         <Link to={`/AuthorPosts/${author.email}`} key={author._id} className="block m-4 hover:scale-105 transition-transform duration-300">
-                            {/* Aggiungiamo la classe post-card e la classe visible condizionalmente */}
                             <div className={`post-card bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform duration-300 w-64 ${visibleCards.includes(index) ? 'visible' : ''}`}>
                                 <img src={author.avatar} alt={`${author.nome} ${author.cognome}`} className="w-full h-48 object-cover" />
                                 <div className="p-4">
