@@ -39,7 +39,7 @@ export default function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <form 
-        className={`login-form flex flex-col items-center w-[600px] mb-52 ${isVisible ? 'login-form-animation' : 'opacity-0'}`} 
+        className={`login-form w-[400px]  flex flex-col items-center sm:w-[600px] mb-52 ${isVisible ? 'login-form-animation' : 'opacity-0'}`} 
         autoComplete="off" 
         onSubmit={handleSubmit}
       >
@@ -47,7 +47,7 @@ export default function Register() {
           <h1 className="text-3xl text-black">Registrazione</h1>
         </div>
 
-        <div className="flex gap-5">
+        <div className="flex w-[330px] xs:w-[380px] sm:w-full gap-5">
           <div className="block-cube block-input mb-4 w-72">
             <input 
               name="nome" 
@@ -76,7 +76,7 @@ export default function Register() {
           </div>
         </div>
 
-        <div className="flex gap-5">
+        <div className="flex w-[330px] xs:w-[380px] sm:w-full gap-5">
           <div className="block-cube block-input mb-4 w-72">
             <input 
               name="email" 
