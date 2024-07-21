@@ -19,12 +19,16 @@ export default function Login({ setIsAuthenticated }) {
     if (token) {
       localStorage.setItem("token", token);
       setIsAuthenticated(true);
-      // Aggiungi questa chiamata per aggiornare immediatamente i dati utente
-      getUserData().then(() => {
-        // Forza un re-render dell'applicazione
-        window.dispatchEvent(new Event('auth-change'));
+      // Aggiungi questa chiamata per ottenere i dati dell'utente
+      getUserData().then(userData => {
+        // Memorizza i dati dell'utente in localStorage
+        localStorage.setItem("userData", JSON.stringify(userData));
+        // Dispara l'evento loginStateChange
+        window.dispatchEvent(new Event('loginStateChange'));
+        navigate("/home");
+      }).catch(error => {
+        console.error("Errore nel recupero dei dati utente:", error);
       });
-      navigate("/home");
     }
   }, [location, navigate, setIsAuthenticated]);
 

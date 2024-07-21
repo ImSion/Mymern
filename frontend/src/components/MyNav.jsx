@@ -25,19 +25,24 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
   //Hook personalizzato per la funzionalità ricerca
   const { toggleSearchVisibility } = useSearch();
 
-   // Effetto per controllare lo stato di login e recuperare i dati dell'utente
   useEffect(() => {
-    // Funzione per controllare lo stato di login
     const checkLoginStatus = async () => {
       const token = localStorage.getItem("token");
       if (token) {
         try {
-          const authorData = await getUserData();
-          setAuthor(authorData);
+          // Prima controlla se ci sono dati utente in localStorage
+          const storedUserData = localStorage.getItem("userData");
+          if (storedUserData) {
+            setAuthor(JSON.parse(storedUserData));
+          } else {
+            const authorData = await getUserData();
+            setAuthor(authorData);
+          }
           setIsAuthenticated(true);
         } catch (error) {
           console.error("Token non valido:", error);
           localStorage.removeItem("token");
+          localStorage.removeItem("userData");
           setIsAuthenticated(false);
           setAuthor(null);
         }
