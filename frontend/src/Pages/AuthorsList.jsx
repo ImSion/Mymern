@@ -120,13 +120,18 @@ export default function AuthorsList() {
 
                 <div className='flex flex-wrap transition-all ease-in-out duration-300 justify-center p-3 min-h-screen relative'>
                     {filteredAuthors.map((author, index) => (
-                        <Link to={`/AuthorPosts/${author.email}`} key={`${author._id}-${index}`} className="block m-4 hover:scale-105 transition-transform duration-300">
-                            <div className={`post-card bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform duration-300 w-64 ${visibleCards.includes(index) ? 'visible' : ''}`}>
-                                <img src={author.avatar} alt={`${author.nome} ${author.cognome}`} className="w-full h-48 object-cover" />
-                                <div className="p-4">
-                                    <h2 className="text-xl font-semibold mb-2 dark:text-white">{author.nome} {author.cognome}</h2>
-                                    <p className="text-gray-600 dark:text-gray-300 mb-2">{author.email}</p>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">Post pubblicati: {author.postCount}</p>
+                        <Link to={`/AuthorPosts/${author.email}`} key={`${author._id}-${index}`} className="m-2 w-full flex flex-col items-center hover:scale-105 transition-transform duration-300">
+                            <div className={`post-card bg-white dark:bg-gray-800 rounded-xl justify-between shadow-lg shadow-gray-600 overflow-hidden transition-transform duration-300 sm:w-full h-16 sm:h-full flex ${visibleCards.includes(index) ? 'visible' : ''}`}>
+                                <img src={author.avatar} alt={`${author.nome} ${author.cognome}`} className="object-cover w-20 sm:w-40 sm:h-32 rounded-r-full" />
+                                <div className="flex flex-col items-center justify-center p-1 sm:p-4">
+                                    <h2 className="text-sm  sm:text-xl font-semibold mb-2 dark:text-white">{author.nome} {author.cognome}</h2>
+                                    <p className="text-gray-600 text-sm sm:text-xl dark:text-gray-300 mb-2">{author.email}</p>
+                                </div>
+
+                                <div className='flex flex-col sm:flex-row items-center justify-center pr-2'>
+                                    <p className="text-sm sm:text-xl text-gray-500 dark:text-gray-400">Post: </p>
+                                    <p className="text-sm sm:text-xl ml-1 text-gray-500 dark:text-gray-400">{author.postCount}</p>
+
                                 </div>
                             </div>
                         </Link>
@@ -136,7 +141,7 @@ export default function AuthorsList() {
                 {currentPage < totalPages && (
                     <button 
                         onClick={loadMoreAuthors}
-                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                        className="mt-2 mb-4 px-4 py-2 bg-white bg-opacity-50 text-black rounded hover:bg-blue-600 transition-colors"
                     >
                         Carica altri autori
                     </button>

@@ -101,16 +101,16 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
         <span className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white">POVBlogs</span>
       </NavbarBrand>
       
-      <div className="flex items-center justify-center xs:ml-0 md:order-2">
+      <div className="flex items-center justify-center xs:ml-0 md:order-2 xs:gap-1">
         {isAuthenticated && (
-          <Link to='/create' className="flex xs:ml-0 items-center mr-3 w-6 h-6 sm:h-8 sm:w-8 transition-all ease-in-out duration-500 hover:scale-110">
+          <Link to='/create' className="flex xs:ml-0 items-center mr-3 transition-all ease-in-out duration-500 hover:scale-110">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
               fill="none" 
               viewBox="0 0 24 24" 
               strokeWidth={1.5} 
               stroke="currentColor" 
-              className="size-6 border-2 text-gray-400 h-8 w-8 p-1 rounded-full border-[#64748b] dark:hover:bg-slate-700 hover:bg-gray-100 hover:text-green-400 hover:shadow-[inset_0px_0px_8px_] hover:shadow-green-400 transition-all ease-in-out duration-500 hover:scale-105"
+              className="size-6 border-2 text-gray-400 w-6 h-6 sm:h-8 sm:w-8 p-1 rounded-full border-[#64748b] dark:hover:bg-slate-700 hover:bg-gray-100 hover:text-green-400 hover:shadow-[inset_0px_0px_8px_] hover:shadow-green-400 transition-all ease-in-out duration-500 hover:scale-105"
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
@@ -169,15 +169,22 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
             </Link>
           </div>
         )}
-        <NavbarToggle />
+        <NavbarToggle className="rounded-full p-1 ml-1" />
       </div>
-      <NavbarCollapse>
-        <NavbarLink className="hover:animate-pulse" active>
-          <Link to='/home' >Home</Link>
+      <NavbarCollapse className="text-center">
+
+        <Link to='/home'>
+        <NavbarLink active className="rounded-full mb-1">
+          Home
         </NavbarLink>
-        <NavbarLink>
-          <Link to='/authors' className="hover:animate-pulse">Autori</Link>
+        </Link>
+
+        <Link to='/authors'>
+        <NavbarLink active className="rounded-full">
+          Autori
         </NavbarLink>
+        </Link>
+
       </NavbarCollapse>
     </Navbar>
   );
