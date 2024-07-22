@@ -31,12 +31,15 @@ export default function Home() {
     const fetchPosts = useCallback(async () => {
         try {
             const response = await getPosts();
-            setAllPosts(response.data);
-            setFilteredPosts(response.data);
+            // Invertiamo l'ordine dei post ricevuti
+            const reversedPosts = response.data.reverse();
+            setAllPosts(reversedPosts);
+            setFilteredPosts(reversedPosts);
         } catch (err) {
             console.error('Errore nella richiesta dei Post', err);
         }
     }, []);
+
 
     // Per caricare i post al montaggio del componente
     useEffect(() => {

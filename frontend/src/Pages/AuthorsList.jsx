@@ -100,7 +100,7 @@ export default function AuthorsList() {
           <>
             <AnimatedBackground />
             <div className='text-center relative'>
-              <h1 className='dark:bg-transparent dark:text-white dark:shadow-[0px_-10px_10px] dark:shadow-sky-600 text-3xl sm:text-5xl py-3 font-sans font-semibold h-12 flex items-center justify-center'>
+              <h1 className='dark:bg-transparent pt-28 pb-10 dark:text-white dark:shadow-[0px_-10px_10px] dark:shadow-sky-600 text-3xl sm:text-5xl py-3 font-sans font-semibold h-12 flex items-center justify-center'>
                 Lista degli Autori
               </h1>
               {[...Array(10)].map((_, index) => (
@@ -117,7 +117,7 @@ export default function AuthorsList() {
         <>
             <AnimatedBackground />
             <div className='text-center relative'>
-                <h1 className='dark:bg-transparent dark:text-white dark:shadow-[0px_-10px_10px] dark:shadow-sky-600 text-3xl sm:text-5xl py-3 font-sans font-semibold h-12 flex items-center justify-center'>
+                <h1 className='dark:bg-transparent pt-28 pb-10 dark:text-white dark:shadow-[0px_-10px_10px] dark:shadow-sky-600 text-3xl sm:text-5xl py-3 font-sans font-semibold h-12 flex items-center justify-center'>
                     Lista degli Autori
                 </h1>
                 

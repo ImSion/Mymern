@@ -15,6 +15,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getUserData } from "../modules/ApiCrud";
 import { useSearch } from '../modules/SearchContext';
+import logo from '../assets/P.png'
 
 export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode, setIsDarkMode }) {
   // Hooks per la navigazione e la localizzazione
@@ -93,7 +94,7 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
       <NavbarBrand href="/home" className="mb-2 xs:mb-0 ">
         <Link to='/home'>
           <img 
-            src="src/assets/P.png"
+            src={logo}
             className="xs:ml-0 bg-black mr-3 h-6 w-6 sm:h-6 sm:w-6 md:h-12 md:w-12 lg:h-12 lg:w-12 shadow-[0px_0px_10px] shadow-sky-500 rounded-full"
             alt="POVBlogs Logo"
           />
