@@ -121,11 +121,11 @@ export default function AuthorsList() {
                 <div className='flex flex-wrap transition-all ease-in-out duration-300 justify-center p-3 min-h-screen relative'>
                     {filteredAuthors.map((author, index) => (
                         <Link to={`/AuthorPosts/${author.email}`} key={`${author._id}-${index}`} className="m-2 w-full flex flex-col items-center hover:scale-105 transition-transform duration-300">
-                            <div className={`post-card bg-white dark:bg-gray-800 rounded-xl w-full justify-between shadow-lg shadow-gray-600 overflow-hidden transition-transform duration-300 sm:w-full h-16 sm:h-full flex ${visibleCards.includes(index) ? 'visible' : ''}`}>
+                            <div className={`post-card bg-white dark:bg-gray-800 rounded-xl w-full justify-between shadow-lg shadow-gray-600 overflow-hidden transition-transform duration-300 sm:w-[95%] h-16 sm:h-full flex ${visibleCards.includes(index) ? 'visible' : ''}`}>
                                 <img src={author.avatar} alt={`${author.nome} ${author.cognome}`} className="object-cover w-20 sm:w-40 sm:h-32 rounded-r-full" />
                                 <div className="flex flex-col items-center justify-center p-1 sm:p-4">
                                     <h2 className="text-sm  sm:text-xl font-semibold mb-2 dark:text-white">{author.nome} {author.cognome}</h2>
-                                    <p className="text-gray-600 text-sm sm:text-xl dark:text-gray-300 mb-2">{author.email}</p>
+                                    <p className="text-gray-600 text-xs sm:text-xl dark:text-gray-300 mb-2">{author.email}</p>
                                 </div>
 
                                 <div className='flex flex-col sm:flex-row items-center justify-center pr-2'>

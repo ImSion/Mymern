@@ -174,13 +174,13 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
       <NavbarCollapse className="text-center">
 
         <Link to='/home'>
-        <NavbarLink active className="rounded-full mb-1">
+        <NavbarLink active className="rounded-full mb-1 text-sm md:text-lg">
           Home
         </NavbarLink>
         </Link>
 
         <Link to='/authors'>
-        <NavbarLink active className="rounded-full">
+        <NavbarLink active className="rounded-full text-sm md:text-lg">
           Autori
         </NavbarLink>
         </Link>

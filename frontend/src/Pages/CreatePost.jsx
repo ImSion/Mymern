@@ -98,7 +98,7 @@ export default function CreatePost() {
     // Rendering del componente
     return (
         <div className='flex text-center items-center justify-center flex-col p-1 min-h-screen'>
-            <h1 className='dark:text-white text-3xl mb-6'>Crea un nuovo post</h1>
+            <h1 className='dark:text-white text-3xl mb-6 pt-20'>Crea un nuovo post</h1>
             <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center text-center gap-5'>
                 {/* Campo per il titolo */}
                 <div className='w-72 sm:w-72 md:w-96 lg:w-[450px] flex flex-col'>
