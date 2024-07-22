@@ -55,8 +55,8 @@ const UserPage = () => {
 
   return (
     <div className="container mx-auto min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-4">Il tuo profilo</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <h1 className="text-2xl font-bold mb-4 dark:text-white pt-20">Il tuo profilo</h1>
+      <form onSubmit={handleSubmit} className="space-y-4 dark:text-white">
         <div>
           <label className="block mb-1">Nome</label>
           <input
@@ -64,7 +64,7 @@ const UserPage = () => {
             name="nome"
             value={formData.nome}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded text-black"
           />
         </div>
         <div>
@@ -74,7 +74,7 @@ const UserPage = () => {
             name="cognome"
             value={formData.cognome}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded text-black"
           />
         </div>
         <div>
@@ -84,7 +84,7 @@ const UserPage = () => {
             name="data_di_nascita"
             value={formData.data_di_nascita}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded text-black"
           />
         </div>
         <div>

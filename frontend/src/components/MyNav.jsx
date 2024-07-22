@@ -93,8 +93,8 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
       <NavbarBrand href="/home" className="mb-2 xs:mb-0 ">
         <Link to='/home'>
           <img 
-            src="https://m.media-amazon.com/images/M/MV5BNDQzNDViNDYtNjE2Ny00YmNhLWExZWEtOTIwMDA1YjY5NDBhXkEyXkFqcGdeQXVyODg3NDc1OTE@._V1_QL75_UX190_CR0,2,190,281_.jpg"
-            className="xs:ml-0 mr-3 h-6 w-6 sm:h-6 sm:w-6 md:h-9 md:w-9 lg:h-12 lg:w-12 shadow-[0px_0px_10px] shadow-sky-500 rounded-full"
+            src="src/assets/P.png"
+            className="xs:ml-0 bg-black mr-3 h-6 w-6 sm:h-6 sm:w-6 md:h-12 md:w-12 lg:h-12 lg:w-12 shadow-[0px_0px_10px] shadow-sky-500 rounded-full"
             alt="POVBlogs Logo"
           />
         </Link>
@@ -152,7 +152,7 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
                 </DropdownHeader>
               </div>
               <Link to="/profile">
-              <DropdownItem>Dashboard</DropdownItem>
+              <DropdownItem>Profilo</DropdownItem>
               </Link>
               <DropdownItem>Settings</DropdownItem>
               <DropdownItem>Earnings</DropdownItem>

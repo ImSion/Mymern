@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getAuthors, getAuthorPosts } from '../modules/ApiCrud';
 import AnimatedBackground from '../components/AnimatedBackground';
 import '../Style/Animations.css';
+import CardSkeleton from '../components/CardSkeleton';
 
 export default function AuthorsList() {
     const [allAuthors, setAllAuthors] = useState([]);
@@ -45,13 +46,13 @@ export default function AuthorsList() {
             );
             setTotalPages(totalPagesCount);
             setCurrentPage(page);
-        } catch (err) {
-            console.error('Errore nella richiesta degli Autori', err);
-            setError(`Si è verificato un errore nel caricamento degli autori: ${err.message}`);
-        } finally {
-            setIsLoading(false);
-        }
-    }, []);
+                } catch (err) {
+                    console.error('Errore nella richiesta degli Autori', err);
+                    setError(`Si è verificato un errore nel caricamento degli autori: ${err.message}`);
+                } finally {
+                    setIsLoading(false);
+                }
+            }, []);
 
     useEffect(() => {
         fetchAuthors();
@@ -94,7 +95,21 @@ export default function AuthorsList() {
         }
     };
 
-    if (isLoading && currentPage === 1) return <div className="text-center mt-10">Caricamento...</div>;
+    if (isLoading && currentPage === 1) {
+        return (
+          <>
+            <AnimatedBackground />
+            <div className='text-center relative'>
+              <h1 className='dark:bg-transparent dark:text-white dark:shadow-[0px_-10px_10px] dark:shadow-sky-600 text-3xl sm:text-5xl py-3 font-sans font-semibold h-12 flex items-center justify-center'>
+                Lista degli Autori
+              </h1>
+              {[...Array(10)].map((_, index) => (
+                <CardSkeleton key={index} />
+              ))}
+            </div>
+          </>
+        );
+      }
 
     if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
 
@@ -148,7 +163,9 @@ export default function AuthorsList() {
                 )}
 
                 {isLoading && currentPage > 1 && (
-                    <div className="mt-4 text-center">Caricamento altri autori...</div>
+                    <div className="mt-4 text-center">
+                      <Loader />
+                    </div>
                 )}
             </div>
         </>
