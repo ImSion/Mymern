@@ -61,14 +61,14 @@ export default function PostDetail() {
       <article className="post-detail flex flex-col items-center justify-center pt-24">
         {/* Immagine di copertina del post e titolo del post */}
         <div className="relative flex flex-col items-center w-[99%] lg:w-[850px] 2xl:w-[1000px] ">
-          <img src={post.cover} alt={post.title} className="w-[98%] lg:w-[850px] 2xl:w-[1000px] rounded-lg shadow-[_1px_2px_10px] shadow-gray-700 dark:shadow-sky-500" />         
+          <img src={post.cover} alt={post.title} className="w-[98%] h-[200px] sm:h-[420px] md:h-[520px] object-cover lg:w-[850px] 2xl:w-[1000px] rounded-lg shadow-[_1px_2px_10px] shadow-gray-700 dark:shadow-sky-500" />         
           <h1 className="absolute text-white top-0 text-xl font-bold line-clamp-2 mt-1 title-text rounded-full p-2">{post.titolo}</h1>
                 
           {/* Dati del post */}
-          <div className="xs:h-4 sm:h-6 w-[98%] lg:w-[850px] 2xl:w-[1000px] bg-slate-100 bg-opacity-60 dark:bg-gray-800 dark:bg-opacity-60 dark:text-white px-2 sm:px-4 mb-2 flex justify-between items-center absolute bottom-0 font-bold line-clamp-2 text-black">
-            <span className="text-mbl md:text-base lg:text-lg transition-all ease-in-out duration-300">Categoria: {post.categoria}</span>
-            <span className="text-mbl md:text-base lg:text-lg transition-all ease-in-out duration-300 hover:scale-105 hover:mb-1 hover:shadow-md hover:shadow-sky-500 rounded-full p-1">Autore: <Link to={`/AuthorPosts/${post.author}`} key={post._id}>{post.author}</Link></span>      
-            <span className="text-mbl md:text-base lg:text-lg transition-all ease-in-out duration-300">
+          <div className="xs:h-6 sm:h-8 w-[98%] lg:w-[850px] 2xl:w-[1000px] bg-slate-100 bg-opacity-60 dark:bg-gray-800 dark:bg-opacity-60 dark:text-white px-1 sm:px-4 mb-2 flex justify-between items-center absolute bottom-0 font-bold line-clamp-2 text-black">
+            <span className="text-mbl text-center md:text-base lg:text-lg transition-all ease-in-out duration-300">Categoria: {post.categoria}</span>
+            <span className="text-mbl text-center md:text-base lg:text-lg transition-all ease-in-out duration-300 hover:scale-105 hover:mb-1 hover:shadow-md hover:shadow-sky-500 rounded-full p-1">Autore: <Link to={`/AuthorPosts/${post.author}`} key={post._id}>{post.author}</Link></span>      
+            <span className="text-mbl text-center md:text-base lg:text-lg transition-all ease-in-out duration-300">
               Tempo di lettura: {post.readTime.value} {post.readTime.unit}
             </span>
           </div>
