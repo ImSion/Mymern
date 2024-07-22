@@ -151,7 +151,7 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
                   <span className="block truncate text-sm font-medium">{author.email}</span>
                 </DropdownHeader>
               </div>
-              <Link to="/user-profile">
+              <Link to="/profile">
               <DropdownItem>Dashboard</DropdownItem>
               </Link>
               <DropdownItem>Settings</DropdownItem>
