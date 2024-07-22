@@ -13,6 +13,7 @@ import AnimatedBackground from "./components/AnimatedBackground";
 import NightSkyBackground from './components/NightSkyBackground';
 import './Style/AnimatedBackground.css';
 import AuthorsList from "./Pages/AuthorsList";
+import UserPage from "./Pages/UserPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
