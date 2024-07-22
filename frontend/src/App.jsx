@@ -52,6 +52,7 @@ function App() {
               <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
               <Route path="/register" element={<Register />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/profile" element={<UserPage />} />
               <Route path="/post/:id" element={<PostDetail />} />
               <Route path="/AuthorPosts/:authorEmail" element={<AuthorPosts />} />
               <Route path="/Authors" element={<AuthorsList />} />
