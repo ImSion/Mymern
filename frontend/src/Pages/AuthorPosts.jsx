@@ -208,7 +208,7 @@ const AuthorPosts = () => {
 
     return (
         <div className='min-h-screen'>
-            <h1 className='text-center text-xl font-bold pt-5 dark:text-white'>Profilo di {author.nome}</h1>
+            <h1 className='text-center text-xl font-bold pt-20 dark:text-white'>Profilo di {author.nome}</h1>
 
             <div className='flex flex-col items-center mt-3 sm:items-end pr-5'>
                 <div className='flex flex-col items-center'>
@@ -265,7 +265,7 @@ const AuthorPosts = () => {
                             </Link>
                             <h2 className="absolute text-xs text-white top-0 sm:text-xl font-bold line-clamp-2 mt-1 title-text rounded-full p-2">{post.titolo}</h2>
                             
-                            <div className="xs:h-4 sm:h-6 w-[98%] lg:w-[850px] 2xl:w-[1000px] bg-slate-100 bg-opacity-60 dark:bg-gray-800 dark:bg-opacity-60 dark:text-white px-2 sm:px-4 mb-2 flex justify-between items-center absolute bottom-0 font-bold line-clamp-2 text-black">
+                            <div className="xs:h-4 sm:h-6 w-[100%] lg:w-[850px] 2xl:w-[1000px] bg-slate-100 bg-opacity-60 dark:bg-gray-800 dark:bg-opacity-60 dark:text-white px-2 sm:px-4 mb-2 flex justify-between items-center absolute bottom-0 font-bold line-clamp-2 text-black">
                                 <span className="text-mbl md:text-base lg:text-lg transition-all ease-in-out duration-300">Categoria: {post.categoria}</span>
                                 <span className="text-mbl md:text-base lg:text-lg transition-all ease-in-out duration-300">
                                     Tempo di lettura: {post.readTime.value} {post.readTime.unit}

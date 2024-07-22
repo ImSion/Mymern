@@ -43,7 +43,16 @@ export default function Login({ setIsAuthenticated }) {
       const response = await loginUser(formData);
       localStorage.setItem("token", response.token);
       setIsAuthenticated(true);
-      setTimeout(() => navigate("/home"), 100); // Aggiunto ritardo per permettere il recupero corretto dei dati
+      
+      // Recupera i dati dell'utente
+      const userData = await getUserData();
+      // Memorizza i dati dell'utente nel localStorage
+      localStorage.setItem("userData", JSON.stringify(userData));
+      
+      // Dispara un evento personalizzato per notificare il cambio di stato del login
+      window.dispatchEvent(new Event('loginStateChange'));
+      
+      navigate("/home");
     } catch (error) {
       console.error("Errore durante il login:", error);
       alert("Credenziali non valide. Riprova.");
