@@ -2,15 +2,26 @@ import { useState, useEffect } from 'react';
 import { getComments, addComment, updateComment, deleteComment } from '../modules/ApiCrud';
 
 export default function CommentSection({ postId, currentUser }) {
+  // Stato per memorizzare i commenti
   const [comments, setComments] = useState([]);
+  // Stato per il nuovo commento da aggiungere
   const [newComment, setNewComment] = useState('');
+  // Stato per tracciare quale commento è in fase di modifica
   const [editingComment, setEditingComment] = useState(null);
+  // Stato per il contenuto del commento in fase di modifica
   const [editContent, setEditContent] = useState('');
+  // Nuovo stato per tracciare quali commenti sono espansi
+  const [expandedComments, setExpandedComments] = useState({});
 
+  // Costante per la lunghezza massima del commento prima di troncarlo
+  const maxCommentsLenght = 380;
+
+  // Effetto per caricare i commenti al montaggio del componente o quando cambia il postId
   useEffect(() => {
     fetchComments();
   }, [postId]);
 
+  // Funzione per recuperare i commenti dal server
   const fetchComments = async () => {
     try {
       const fetchedComments = await getComments(postId);
@@ -20,6 +31,7 @@ export default function CommentSection({ postId, currentUser }) {
     }
   };
 
+  // Funzione per gestire l'aggiunta di un nuovo commento
   const handleAddComment = async (e) => {
     e.preventDefault();
     if (!newComment.trim()) return;
@@ -36,6 +48,7 @@ export default function CommentSection({ postId, currentUser }) {
     }
   };
 
+  // Funzione per gestire la modifica di un commento esistente
   const handleEditComment = async (commentId, newContent) => {
     try {
       const updatedComment = await updateComment(postId, commentId, { content: newContent });
@@ -46,6 +59,7 @@ export default function CommentSection({ postId, currentUser }) {
     }
   };
 
+  // Funzione per gestire l'eliminazione di un commento
   const handleDeleteComment = async (commentId) => {
     try {
       await deleteComment(postId, commentId);
@@ -55,10 +69,19 @@ export default function CommentSection({ postId, currentUser }) {
     }
   };
 
+  // Nuova funzione per gestire l'espansione/contrazione dei commenti
+  const toggleCommentExpansion = (commentId) => {
+    setExpandedComments(prev => ({
+      ...prev,
+      [commentId]: !prev[commentId]
+    }));
+  };
+
   return (
     <div className="comment-section mt-8 w-[97%]">
       <h3 className="text-xl font-bold mb-4 dark:text-white">Commenti</h3>
       
+      {/* Form per aggiungere un nuovo commento */}
       {currentUser && (
         <form onSubmit={handleAddComment} className="mb-6 relative">
           <textarea
@@ -77,10 +100,12 @@ export default function CommentSection({ postId, currentUser }) {
         </form>
       )}
 
+      {/* Rendering dei commenti */}
       {comments.map(comment => (
         <div key={comment._id} className="bg-white border bg-opacity-50 p-1 rounded mb-4 dark:bg-black dark:bg-opacity-50 relative">
           <p className="font-bold dark:text-sky-500">{comment.name}</p>
           {editingComment === comment._id ? (
+            // Form per la modifica del commento
             <form onSubmit={(e) => {
               e.preventDefault();
               handleEditComment(comment._id, editContent);
@@ -108,8 +133,24 @@ export default function CommentSection({ postId, currentUser }) {
               </div>
             </form>
           ) : (
+            // Visualizzazione del commento
             <>
-              <p className='dark:text-white mb-12'>{comment.content}</p>
+              <p className='dark:text-white mb-4'>
+                {/* Mostra il contenuto troncato o completo in base allo stato di espansione */}
+                {expandedComments[comment._id] || comment.content.length <= maxCommentsLenght
+                  ? comment.content
+                  : `${comment.content.slice(0, maxCommentsLenght)}...`}
+              </p>
+              {/* Pulsante "Show more" / "Show less" per commenti lunghi */}
+              {comment.content.length > maxCommentsLenght && (
+                <button
+                  onClick={() => toggleCommentExpansion(comment._id)}
+                  className="text-sky-500 hover:text-sky-700 transition-colors"
+                >
+                  {expandedComments[comment._id] ? "Riduci commento" : "Mostra commento"}
+                </button>
+              )}
+              {/* Pulsanti per modificare o eliminare il commento */}
               {currentUser && currentUser.email === comment.email && !editingComment && (
                 <div className="absolute bottom-2 right-2 flex space-x-2">
                   <button 
