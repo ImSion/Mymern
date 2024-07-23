@@ -94,14 +94,14 @@ export default function CommentSection({ postId, currentUser }) {
               <div className="mt-2">
                 <button 
                   type="submit" 
-                  className="px-4 mr-2 py-2 text-emerald-500 hover:text-emerald-300 transition-colors border rounded-lg shadow-md shadow-emerald-500 bg-emerald-700 bg-opacity-30"
+                  className="px-4 mr-2 py-2 text-emerald-500 hover:text-emerald-300 transition-colors border rounded-lg shadow-md shadow-emerald-500 bg-white bg-opacity-30 dark:bg-emerald-700 dark:bg-opacity-30"
                 >
                   Salva
                 </button>
                 <button 
                   type="button" 
                   onClick={() => setEditingComment(null)} 
-                  className="px-4 mr-2 py-2 text-gray-400 hover:text-gray-300 transition-colors border rounded-lg shadow-md shadow-gray-500 bg-gray-700 bg-opacity-30"
+                  className="px-4 mr-2 py-2 text-white dark:text-gray-400 hover:text-gray-300 transition-colors border rounded-lg shadow-md shadow-gray-500 bg-gray-600 bg-opacity-40 dark:bg-gray-700 dark:bg-opacity-30"
                 >
                   Annulla
                 </button>
