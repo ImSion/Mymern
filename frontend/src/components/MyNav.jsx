@@ -91,7 +91,7 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
   return (
     <Navbar fluid className="dark:shadow-lg dark:shadow-sky-600 fixed w-full z-10">
 
-      <NavbarBrand href="/home" className="mb-2 xs:mb-0 ">
+      <NavbarBrand as={Link} to="/home" className="mb-2 xs:mb-0 ">
         <Link to='/home'>
           <img 
             src={logo}
@@ -155,10 +155,8 @@ export default function MyNav({ isAuthenticated, setIsAuthenticated, isDarkMode,
               <Link to="/profile">
               <DropdownItem>Profilo</DropdownItem>
               </Link>
-              <DropdownItem>Settings</DropdownItem>
-              <DropdownItem>Earnings</DropdownItem>
               <DropdownDivider />
-              <DropdownItem onClick={handleLogout}>Sign out</DropdownItem>
+              <DropdownItem onClick={handleLogout}>Log out</DropdownItem>
             </Dropdown>
           )
         ) : (

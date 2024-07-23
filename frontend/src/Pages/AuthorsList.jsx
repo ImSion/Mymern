@@ -4,6 +4,7 @@ import { getAuthors, getAuthorPosts } from '../modules/ApiCrud';
 import AnimatedBackground from '../components/AnimatedBackground';
 import '../Style/Animations.css';
 import CardSkeleton from '../components/CardSkeleton';
+import Loader from '../components/Loader'
 
 export default function AuthorsList() {
     const [allAuthors, setAllAuthors] = useState([]);

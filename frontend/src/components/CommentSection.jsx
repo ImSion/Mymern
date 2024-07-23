@@ -5,6 +5,7 @@ export default function CommentSection({ postId, currentUser }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [editingComment, setEditingComment] = useState(null);
+  const [editContent, setEditContent] = useState('');
 
   useEffect(() => {
     fetchComments();
@@ -65,7 +66,7 @@ export default function CommentSection({ postId, currentUser }) {
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Aggiungi un commento..."
             className="w-full p-2 pr-24 border dark:text-white dark:border-sky-500 rounded bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50"
-            rows="4" // Puoi regolare questo valore per modificare l'altezza del textarea
+            rows="4"
           />
           <button 
             type="submit" 
@@ -76,58 +77,62 @@ export default function CommentSection({ postId, currentUser }) {
         </form>
       )}
 
-{comments.map(comment => (
-  <div key={comment._id} className="bg-white border bg-opacity-50 p-4 pr-32 rounded mb-4 dark:bg-black dark:bg-opacity-50 relative">
-    <p className="font-bold dark:text-sky-500">{comment.name}</p>
-    {editingComment === comment._id ? (
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        handleEditComment(comment._id, e.target.content.value);
-      }}>
-        <textarea 
-          name="content" 
-          defaultValue={comment.content} 
-          className="w-full p-2 border rounded"
-        />
-        <div className="mt-2">
-          <button 
-            type="submit" 
-            className="px-4 py-2 bg-green-500 text-white rounded mr-2"
-          >
-            Salva
-          </button>
-          <button 
-            type="button" 
-            onClick={() => setEditingComment(null)} 
-            className="px-4 py-2 bg-gray-500 text-white rounded"
-          >
-            Annulla
-          </button>
+      {comments.map(comment => (
+        <div key={comment._id} className="bg-white border bg-opacity-50 p-1 rounded mb-4 dark:bg-black dark:bg-opacity-50 relative">
+          <p className="font-bold dark:text-sky-500">{comment.name}</p>
+          {editingComment === comment._id ? (
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              handleEditComment(comment._id, editContent);
+            }}>
+              <textarea 
+                value={editContent}
+                onChange={(e) => setEditContent(e.target.value)}
+                className="w-full p-2 border rounded resize-none sm:resize-vertical"
+                rows="3"
+              />
+              <div className="mt-2">
+                <button 
+                  type="submit" 
+                  className="px-4 mr-2 py-2 text-emerald-500 hover:text-emerald-300 transition-colors border rounded-lg shadow-md shadow-emerald-500 bg-emerald-700 bg-opacity-30"
+                >
+                  Salva
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => setEditingComment(null)} 
+                  className="px-4 mr-2 py-2 text-gray-400 hover:text-gray-300 transition-colors border rounded-lg shadow-md shadow-gray-500 bg-gray-700 bg-opacity-30"
+                >
+                  Annulla
+                </button>
+              </div>
+            </form>
+          ) : (
+            <>
+              <p className='dark:text-white mb-12'>{comment.content}</p>
+              {currentUser && currentUser.email === comment.email && !editingComment && (
+                <div className="absolute bottom-2 right-2 flex space-x-2">
+                  <button 
+                    onClick={() => {
+                      setEditingComment(comment._id);
+                      setEditContent(comment.content);
+                    }} 
+                    className="text-emerald-500 hover:text-emerald-300 transition-colors border rounded-lg shadow-md shadow-emerald-500 bg-emerald-700 bg-opacity-30 p-1"
+                  >
+                    Modifica
+                  </button>
+                  <button 
+                    onClick={() => handleDeleteComment(comment._id)} 
+                    className="text-red-500 hover:text-red-300 transition-colors border rounded-lg shadow-md shadow-red-500 bg-red-700 bg-opacity-30 p-1"
+                  >
+                    Elimina
+                  </button>
+                </div>
+              )}
+            </>
+          )}
         </div>
-      </form>
-    ) : (
-      <>
-        <p className='dark:text-white mb-8'>{comment.content}</p>
-        {currentUser && currentUser.email === comment.email && !editingComment && (
-          <div className="absolute bottom-2 right-2 flex space-x-2">
-            <button 
-              onClick={() => setEditingComment(comment._id)} 
-              className="text-emerald-500 hover:text-emerald-700 transition-colors"
-            >
-              Modifica
-            </button>
-            <button 
-              onClick={() => handleDeleteComment(comment._id)} 
-              className="text-red-500 hover:text-red-700 transition-colors"
-            >
-              Elimina
-            </button>
-          </div>
-        )}
-      </>
-    )}
-  </div>
-))}
+      ))}
     </div>
   );
 }

@@ -46,7 +46,7 @@ export default function PostDetail() {
           clearInterval(intervalId);
           return prev;
         });
-      }, 50); // Regola la velocità dell'animazione qui
+      }, 30); // Regola la velocità dell'animazione qui
 
       return () => clearInterval(intervalId);
     }

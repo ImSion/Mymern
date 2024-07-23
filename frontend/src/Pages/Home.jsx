@@ -191,7 +191,7 @@ export default function Home() {
                         <button
                             onClick={() => paginate(currentPage - 1)}
                             disabled={currentPage === 1}
-                            className="mx-1 px-1 shadow-md shadow-gray-700 rounded-full py-1 border bg-transparent transition-all ease-in-out duration-300 hover:bg-sky-700 text-sky-900 hover:text-black disabled:bg-transparent disabled:text-gray-800 disabled:shadow-none disabled:border-none"
+                            className="mx-1 px-1 shadow-md shadow-gray-700 rounded-full py-1 border bg-transparent dark:bg-sky-500 dark:bg-opacity-50 dark:text-white transition-all ease-in-out duration-300 hover:bg-sky-700 text-sky-900 hover:text-black disabled:bg-transparent disabled:text-gray-800 disabled:shadow-none disabled:border-none"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -203,7 +203,7 @@ export default function Home() {
                         <button
                             onClick={() => paginate(currentPage + 1)}
                             disabled={currentPage === Math.ceil(filteredPosts.length / postsPerPage)}
-                            className="mx-1 px-1 shadow-md shadow-gray-700 rounded-full py-1 border bg-transparent transition-all ease-in-out duration-300 hover:bg-sky-700 text-sky-900 hover:text-black disabled:bg-transparent disabled:text-gray-800 disabled:shadow-none disabled:border-none"
+                            className="mx-1 px-1 shadow-md shadow-gray-700 rounded-full py-1 border bg-transparent dark:bg-sky-500 dark:bg-opacity-50 dark:text-white transition-all ease-in-out duration-300 hover:bg-sky-700 text-sky-900 hover:text-black disabled:bg-transparent disabled:text-gray-800 disabled:shadow-none disabled:border-none"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
