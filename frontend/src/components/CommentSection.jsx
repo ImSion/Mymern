@@ -36,12 +36,13 @@ export default function CommentSection({ postId, currentUser }) {
     e.preventDefault();
     if (!newComment.trim()) return;
     try {
-      const addedComment = await addComment(postId, {
+      await addComment(postId, {
         content: newComment,
         name: currentUser.nome,
         email: currentUser.email
       });
-      setComments([...comments, addedComment]);
+      // Dopo aver aggiunto il commento, ricarichiamo tutti i commenti
+      await fetchComments();
       setNewComment('');
     } catch (error) {
       console.error("Errore nell'aggiunta del commento:", error);
