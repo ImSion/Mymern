@@ -117,13 +117,13 @@ export default function CommentSection({ postId, currentUser }) {
                       setEditingComment(comment._id);
                       setEditContent(comment.content);
                     }} 
-                    className="text-emerald-500 hover:text-emerald-300 transition-colors border rounded-lg shadow-md shadow-emerald-500 bg-emerald-700 bg-opacity-30 p-1"
+                    className="text-emerald-500 hover:text-emerald-300 transition-colors border rounded-lg shadow-md shadow-emerald-500 bg-white bg-opacity-30 dark:bg-emerald-700 dark:bg-opacity-30 p-1"
                   >
                     Modifica
                   </button>
                   <button 
                     onClick={() => handleDeleteComment(comment._id)} 
-                    className="text-red-500 hover:text-red-300 transition-colors border rounded-lg shadow-md shadow-red-500 bg-red-700 bg-opacity-30 p-1"
+                    className="text-red-500 hover:text-red-300 transition-colors border rounded-lg shadow-md shadow-red-500 bg-white bg-opacity-30 dark:bg-red-700 dark:bg-opacity-30 p-1"
                   >
                     Elimina
                   </button>
